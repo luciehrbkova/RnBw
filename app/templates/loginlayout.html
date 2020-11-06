@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--block head ----------------------------------- -->
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>{{ title }}</title>
+    {% endblock %}
+</head>
+<body>
+    <!--block body ----------------------------------- -->
+    {% block body %}
+    <!--*********************** HERO PAGE *************************-->
+    <section class="home">
+        <nav class="navigation">
+            <div class="menu_box flex_center">
+               
+            </div>
+            <div class="nav_bar flex_row_spacebetween">
+                <h1>{{ title }}</h1>
+            </div>
+            <div class="menu_box"></div>
+        </nav>
+        <!-- flash message -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="fm_box">
+            <span class="flash_message">{{ message }}</span>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+     
+
+
+
+        <!-- ***************** MAIN SECTION **************************** -->
+        <section class="main no_overflow">
+            <div class="welcome ">
+                <h2 class="mobile_none">Welcome to <br>Rainbow Productivity App</h2>
+                <h2 class="mobile_only">Welcome to <br>Rainbow <br>Productivity App</h2>
+                <p class="mobile_none"> Ready to reach your goals?</p>
+                <div class="rainbow_home">
+                    <img src="{{ url_for('static', filename='img/rainbow_bckg.png') }}" alt="">
+                </div>
+            </div>
+            <!--block form ----------------------------------- -->
+            {% block form %}
+         
+            {% endblock %}
+        </section>
+    </section>   
+    {% endblock %}
+</body>
+</html>
