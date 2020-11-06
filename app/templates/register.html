@@ -1,0 +1,23 @@
+
+{% extends "loginlayout.html" %}
+
+<!--block form ----------------------------------- -->
+{% block form %}     
+            <form action="" class="form">
+                <label for="">Name</label>
+                <input type="text" placeholder="Name">
+                <label for="" >Surname</label>
+                <input type="text" placeholder="Surname">
+                <label for="">Email</label>
+                <input type="text" placeholder="Email">
+                <label for="">Password</label>
+                <input type="text" placeholder="Password">
+                <label for="">Repeat Password</label>
+                <input type="text" placeholder="Repeat Password">
+                <label for="">Submit</label>
+                <input type="submit" class="submit">
+                <br>
+                <br>
+                <span class="link">Already member?<a href="{{ url_for('index') }}"> Log In</a></span>
+            </form>
+{% endblock %}           
