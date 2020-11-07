@@ -1,10 +1,10 @@
 from flask import render_template, url_for, redirect, flash
 from app import app
-from app.forms import LoginForm
+from app import db
+from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user
 from app.models import User
-from flask_login import logout_user
-from flask_login import login_required
+from flask_login import logout_user, login_required
 
 @app.route("/")
 def index():
@@ -38,19 +38,29 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-
-
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
-    return render_template('register.html', title='Registration')
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data, name=form.name.data, surname=form.surname.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Registration', form=form)
 
 @app.route("/home")
-
 @login_required
 def home():
-    user = {'email': 'Lucie'}
     return render_template('home.html', title='home')
 
+@app.route("/myboards")
+@login_required
+def myboards():
+    return render_template('myboards.html', title='home')
 
 @app.route("/test")
 def test():

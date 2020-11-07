@@ -3,21 +3,48 @@
 
 <!--block form ----------------------------------- -->
 {% block form %}     
-            <form action="" class="form">
-                <label for="">Name</label>
-                <input type="text" placeholder="Name">
-                <label for="" >Surname</label>
-                <input type="text" placeholder="Surname">
-                <label for="">Email</label>
-                <input type="text" placeholder="Email">
-                <label for="">Password</label>
-                <input type="text" placeholder="Password">
-                <label for="">Repeat Password</label>
-                <input type="text" placeholder="Repeat Password">
-                <label for="">Submit</label>
-                <input type="submit" class="submit">
+            <form action="" method="POST" class="form">
+                {{ form.hidden_tag() }}
+                <!-- name -->
+                {{ form.name.label }}
+                {{ form.name(placeholder="Name", class='form_input') }}
+                {% for error in form.name.errors %}
+                <span style="color: #FA4A4A; text-align: center">{{ 'Your name is required' }}</span>
+                {% endfor %}
+
+                <!-- surname -->
+                {{ form.surname.label }}
+                {{ form.surname(placeholder="Surname", class='form_input') }}
+                {% for error in form.surname.errors %}
+                <span style="color: #FA4A4A; text-align: center">{{ 'Your surname is required' }}</span>
+                {% endfor %}
+
+                <!-- email -->
+                {{ form.email.label }}
+                {{ form.email(placeholder="Email", class='form_input') }}
+                {% for error in form.email.errors %}
+                <span style="color: #FA4A4A; text-align: center">{{ 'Email is required' }}</span>
+                {% endfor %}
+                
+                <!-- password -->
+                {{ form.password.label }}
+                {{ form.password(placeholder="Password", class='form_input') }}
+                {% for error in form.password.errors %}
+                <span style="color: #FA4A4A; text-align: center">{{ 'Password is required' }}</span>
+                {% endfor %}
+               
+                <!-- password2 -->
+                {{ form.password2.label }}
+                {{ form.password2(placeholder="Password Repeat", class='form_input') }}
+                {% for error in form.password2.errors %}
+                <span style="color: #FA4A4A; text-align: center">{{ 'Password Repeat is required' }}</span>
+                {% endfor %}
+
+                <!-- submit -->
+                {{ form.submit.label }}
+                {{ form.submit(class='submit') }}
                 <br>
                 <br>
-                <span class="link">Already member?<a href="{{ url_for('index') }}"> Log In</a></span>
+                <span class="link">Already member?<a href="{{ url_for('login') }}"> Log In</a></span>
             </form>
 {% endblock %}           
