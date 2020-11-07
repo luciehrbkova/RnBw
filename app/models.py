@@ -23,7 +23,6 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-
 class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(24), index=True)
