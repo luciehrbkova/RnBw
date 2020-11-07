@@ -1,6 +1,10 @@
 from flask import render_template, url_for, redirect, flash
 from app import app
 from app.forms import LoginForm
+from flask_login import current_user, login_user
+from app.models import User
+from flask_login import logout_user
+from flask_login import login_required
 
 @app.route("/")
 def index():
@@ -8,13 +12,31 @@ def index():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    # user = {'username': 'Lucie'}
+    #logged in user tryning to login again - direct him home
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     # form validate on submit process the form
     if form.validate_on_submit():
-        flash('Login requested for user {}'.format(form.email.data))
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid email or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        # next_page = request.args.get('next')
+        # if not next_page or url_parse(next_page).netloc != '':
+        #     next_page = url_for('home')
+        # return redirect(next_page)
         return redirect(url_for('home'))
+        # return redirect(url_for('home'))
+        #try flash message
+        # flash('Login succsesfull {}'.format(form.email.data))
     return render_template('login.html', title='Login', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 
@@ -23,9 +45,11 @@ def register():
     return render_template('register.html', title='Registration')
 
 @app.route("/home")
+
+@login_required
 def home():
     user = {'email': 'Lucie'}
-    return render_template('home.html', title='home', user=user)
+    return render_template('home.html', title='home')
 
 
 @app.route("/test")
