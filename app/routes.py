@@ -38,8 +38,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -55,12 +53,14 @@ def register():
     return render_template('register.html', title='Registration', form=form)
 
 @app.route("/home")
-
 @login_required
 def home():
-    user = {'email': 'Lucie'}
     return render_template('home.html', title='home')
 
+@app.route("/myboards")
+@login_required
+def myboards():
+    return render_template('myboards.html', title='home')
 
 @app.route("/test")
 def test():
