@@ -13,34 +13,34 @@
         </div>
     </div>
     <div class="header_home_cards">
-        <div class="board_card">
+        {% for board in boards %}
+        <a href="{{ url_for('board', boardid=board['title']) }}"><div class="board_card">
             <div class="flex_row_spacebetween">
-                <span class="date">Lucie Hrbkova</span>
-                <span class="date">10_10_2020</span>
+                <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
+                <span class="date">10_10_2020 {{ board.id }}</span>
             </div>
-            <h2 class="board_header">Productivity Board Holiday</h2>
-        </div>
-        <div class="board_card">
-            <div class="flex_row_spacebetween">
-                <span class="date">Your badges</span>
-            </div>
-            <h2 class="board_header">Award Gallery</h2>
-        </div>
+            <h2 class="board_header">{{ board.title }}</h2>
+        </div></a>
+    {% endfor %}
     </div>
     <div class="header_home_cards">
-        <div class="board_card">
-            <div class="flex_row_spacebetween">
-                <span class="date">Lucie Hrbkova</span>
-                <span class="date">10_10_2020</span>
+        <a href="{{ url_for('awards') }}">
+            <div class="board_card">
+                <div class="flex_row_spacebetween">
+                    <span class="date">Your badges</span>
+                </div>
+                <h2 class="board_header">Award Gallery</h2>
             </div>
-            <h2 class="board_header">Productivity Board Holiday</h2>
-        </div>
-        <div class="board_card">
-            <div class="flex_row_spacebetween">
-                <span class="date">your reports</span>
+        </a>
+
+        <a href="{{ url_for('reports') }}">
+            <div class="board_card">
+                <div class="flex_row_spacebetween">
+                    <span class="date">your reports</span>
+                </div>
+                <h2 class="board_header">Analytics</h2>
             </div>
-            <h2 class="board_header">Analytics</h2>
-        </div>
+        </a>
     </div>
 </section>
  

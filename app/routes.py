@@ -1,9 +1,9 @@
 from flask import render_template, url_for, redirect, flash
 from app import app
 from app import db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, BoardForm
 from flask_login import current_user, login_user
-from app.models import User
+from app.models import User, Board
 from flask_login import logout_user, login_required
 
 @app.route("/")
@@ -56,14 +56,15 @@ def register():
 @login_required
 def home():
     user = current_user
-    return render_template('home.html', title='Home')
+    recentboards = Board.query.order_by(Board.id.desc()).limit(2).all()
+    return render_template('home.html', title='Home', boards=recentboards, user=user)
 
 @app.route("/myboards")
 @login_required
 def myboards():
     user = current_user
     boards = user.boards.all()
-    return render_template('myboards.html', title='My Boards', boards=boards, user=user)
+    return render_template('myboards.html', title='My Boards', boards=boards, user=user, greeting="What do you want to work on, today!")
 
 @app.route("/awards")
 @login_required
@@ -77,11 +78,24 @@ def reports():
     user = current_user
     return render_template('reports.html', title='My Analytics')
 
-@app.route("/board")
+@app.route("/newboard", methods=['GET', 'POST'])
 @login_required
-def board():
-    user = current_user
-    return render_template('board.html', title='Board')
+def newboard():
+    form = BoardForm()
+    if form.validate_on_submit():
+        board = Board(title=form.title.data, author=current_user)
+        db.session.add(board)
+        db.session.commit() 
+        return redirect(url_for('myboards'))
+        # return redirect(url_for('board/board['title']')
+    return render_template('board.html', title='New Board', form=form, greeting="Let's start with creating new board!")
+
+@app.route("/board/<boardid>")
+@login_required
+def board(boardid):
+    # print(boardid)
+#     return board.id
+    return render_template('myboards.html', title=boardid, greeting="Let's do it!")
 
 @app.route("/test")
 def test():

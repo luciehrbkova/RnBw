@@ -5,13 +5,13 @@
  <!-- ***************** MAIN SECTION **************************** -->
  <section class="main no_overflow flex-wrap flex_start">
     {% for board in boards %}
-        <div class="board_card">
+    <a href="{{ url_for('board', boardid=board['title']) }}"><div class="board_card">
             <div class="flex_row_spacebetween">
                 <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
-                <span class="date">10_10_2020</span>
+                <span class="date">10_10_2020 {{ board.id }}</span>
             </div>
             <h2 class="board_header">{{ board.title }}</h2>
-        </div>
+        </div></a>
     {% endfor %}
 
  </section> 
@@ -23,7 +23,7 @@
 <div class="dashboard flex_row_spacebetween">
     <div class="column">
         <span class="name">{{ current_user.name }},</span>
-        <p class="message">Welcome to your boards!</p>
+        <p class="message">{{ greeting }}</p>
     </div>
     <div class="column tablet_none">
     </div>

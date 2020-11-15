@@ -4,10 +4,16 @@
  {% block main %}
  <!-- ***************** MAIN SECTION **************************** -->
  <section class="main no_overflow flex-wrap flex_start">
-    <form action="" method="GET" id="newboardForm">
-        <label for=""></label>
-        <input type="text" placeholder="New Board">
-        <input type="submit" value="Create" class="submit">
+    <form action="" method="POST" id="newboardForm">
+        {{ form.hidden_tag() }}
+        <!-- {{ form.title.label }} -->
+        {{ form.title(placeholder="New Board Title") }}
+        {% for error in form.title.errors %}
+        <span style="color: #FA4A4A; text-align: center">{{ 'New title is required' }}</span>
+        {% endfor %}
+        <!-- submit -->
+        <!-- {{ form.submit.label }} -->
+        {{ form.submit(class='submit') }}
     </form>
 
  </section> 
@@ -19,7 +25,7 @@
 <div class="dashboard flex_row_spacebetween">
     <div class="column">
         <span class="name">{{ current_user.name }},</span>
-        <p class="message">Welcome to your boards!</p>
+        <p class="message">{{ greeting }}</p>
     </div>
     <div class="column tablet_none">
     </div>
