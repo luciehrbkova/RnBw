@@ -4,15 +4,17 @@
  {% block main %}
  <!-- ***************** MAIN SECTION **************************** -->
  <section class="main no_overflow flex-wrap flex_start">
-    {% for board in boards %}
-    <a href="{{ url_for('board', boardid=board['title']) }}"><div class="board_card">
-            <div class="flex_row_spacebetween">
-                <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
-                <span class="date">10_10_2020 {{ board.id }}</span>
-            </div>
-            <h2 class="board_header">{{ board.title }}</h2>
-        </div></a>
-    {% endfor %}
+    <form action="" method="POST" id="newboardForm">
+        {{ form.hidden_tag() }}
+        <!-- {{ form.title.label }} -->
+        {{ form.title(placeholder="New Board Title") }}
+        {% for error in form.title.errors %}
+        <span style="color: #FA4A4A; text-align: center">{{ 'New title is required' }}</span>
+        {% endfor %}
+        <!-- submit -->
+        <!-- {{ form.submit.label }} -->
+        {{ form.submit(class='submit') }}
+    </form>
 
  </section> 
 {% endblock %}  
