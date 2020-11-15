@@ -52,15 +52,36 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Registration', form=form)
 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
-    return render_template('home.html', title='home')
+    user = current_user
+    return render_template('home.html', title='Home')
 
 @app.route("/myboards")
 @login_required
 def myboards():
-    return render_template('myboards.html', title='home')
+    user = current_user
+    boards = user.boards.all()
+    return render_template('myboards.html', title='My Boards', boards=boards, user=user)
+
+@app.route("/awards")
+@login_required
+def awards():
+    user = current_user
+    return render_template('awards.html', title='My Awards Gallery')
+
+@app.route("/reports")
+@login_required
+def reports():
+    user = current_user
+    return render_template('reports.html', title='My Analytics')
+
+@app.route("/board")
+@login_required
+def board():
+    user = current_user
+    return render_template('board.html', title='Board')
 
 @app.route("/test")
 def test():

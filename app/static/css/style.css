@@ -62,7 +62,13 @@ h2 {
 
 a {
   text-decoration: none;
+  color: inherit;
   font-weight: 400;
+  color: #4D4D4D !important;
+}
+
+li {
+  color: #4D4D4D !important;
 }
 
 .text_center {
@@ -122,6 +128,10 @@ a {
 #dropdown_menu ul {
   margin: 0;
   padding: 0;
+}
+
+#dropdown_menu ul a {
+  color: #4D4D4D;
 }
 
 .menu_item {
@@ -718,5 +728,68 @@ a {
 .required_field {
   text-align: center;
   color: #FA4A4A;
+}
+
+#newboardForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 40px 40px 50px 40px;
+  width: 380px;
+  position: absolute;
+  left: calc( 50vw - 190px);
+  top: 20vh;
+  z-index: 100;
+  background: #D2CED1;
+  border-radius: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  #newboardForm {
+    width: 300px;
+    left: calc( 50vw - 150px);
+  }
+}
+
+#newboardForm input {
+  width: 300px;
+  padding: 8px 15px;
+  margin-top: 10px;
+  border: 1px solid #D2CED1;
+  color: #4D4D4D;
+}
+
+@media screen and (max-width: 600px) {
+  #newboardForm input {
+    width: 220px;
+  }
+}
+
+#newboardForm input::-webkit-input-placeholder {
+  color: #4D4D4D;
+}
+
+#newboardForm input:-ms-input-placeholder {
+  color: #4D4D4D;
+}
+
+#newboardForm input::-ms-input-placeholder {
+  color: #4D4D4D;
+}
+
+#newboardForm input::placeholder {
+  color: #4D4D4D;
+}
+
+#newboardForm input:focus {
+  outline: none;
+}
+
+.pointer {
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

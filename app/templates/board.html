@@ -4,15 +4,11 @@
  {% block main %}
  <!-- ***************** MAIN SECTION **************************** -->
  <section class="main no_overflow flex-wrap flex_start">
-    {% for board in boards %}
-        <div class="board_card">
-            <div class="flex_row_spacebetween">
-                <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
-                <span class="date">10_10_2020</span>
-            </div>
-            <h2 class="board_header">{{ board.title }}</h2>
-        </div>
-    {% endfor %}
+    <form action="" method="GET" id="newboardForm">
+        <label for=""></label>
+        <input type="text" placeholder="New Board">
+        <input type="submit" value="Create" class="submit">
+    </form>
 
  </section> 
 {% endblock %}  

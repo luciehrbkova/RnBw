@@ -56,8 +56,11 @@ h2
     line-height: 3.75rem
 a
     text-decoration: none
+    color: inherit
     font-weight: 400
-    color: $black
+    color: $black !important
+li
+    color: $black !important
 .text_center
     text-align: center
 .date
@@ -437,6 +440,35 @@ a
     text-align: center
     color: $red
 
+// create board
+#newboardForm
+    display: flex
+    flex-direction: column
+    padding: 40px 40px 50px 40px
+    width: 380px
+    position: absolute
+    left: calc( 50vw - 190px) 
+    top: 20vh
+    z-index: 100
+    background: $grey
+    border-radius: 1rem
+    @media screen and ( max-width: 600px )
+        width: 300px
+        left: calc( 50vw - 150px )
+    input
+        width: 300px
+        padding: 8px 15px
+        margin-top: 10px
+        border: 1px solid $grey
+        color: $black
+        @media screen and ( max-width: 600px )
+            width: 220px
+        &::placeholder
+            color: $black
+        &:focus
+            outline: none     
+.pointer
+    cursor: pointer
         
 
     

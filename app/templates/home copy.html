@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Home</title>
+
+</head>
+<body>
+    <!--*********************** HERO PAGE *************************-->
+    <section class="home">
+        <nav class="navigation">
+            <div class="menu_box flex_center">
+                <div class="menu_circle flex_center" id="btn_menu" onclick="openNav()">
+                    <div class="hmb_box flex_center"><img src="{{ url_for('static', filename='img/menu.png') }}" alt="" id="menu_img"></div>
+                </div>
+            </div>
+            <div class="nav_bar flex_row_spacebetween">
+                <h1>Home</h1>
+                <span class="flex_row_spacebetween mobile_none"><div class="box_user_img"><img src="{{ url_for('static', filename='img/new.png') }}" alt=""></div>Create New Board</span>
+                <span class="searchbox flex_row_spacebetween mobile_none"><div class="box_user_img"><img src="{{ url_for('static', filename='img/lupa.png') }}" alt=""></div><input class="searchinput" type="text" placeholder="Search"></span>
+                <span class="flex_row_spacebetween"><div class="box_user_img"><img src="{{ url_for('static', filename='img/user.png') }}" alt=""></div>{{ current_user.name }}</span>
+            </div>
+            <div class="menu_box"></div>
+        </nav>
+
+        <!-- flash message -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="fm_box">
+            <span class="flash_message">{{ message }}</span>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+        <div id="dropdown_menu">
+            <ul>
+                <a href=""><li class="menu_item">New Board</li></a>
+                <li class="menu_item"><a href="{{ url_for('myboards') }}">My Boards</a></li>
+                <!-- <li class="menu_item">Profile</li> -->
+                <li class="menu_item">Awards Gallery</li>
+                <li class="menu_item">Reports</li>
+                <a href="{{ url_for('logout') }}"><li class="menu_item">Sign Out</li></a>
+            </ul>
+        </div>
+
+        <!-- ***************** MAIN SECTION **************************** -->
+        <section class="main no_overflow">
+            <div class="welcome">
+                <h2>{{ current_user.name }},</h2>
+                <h2>welcome back!</h2>
+                <p>Ready to reach your goals?</p>
+                <div class="rainbow_home">
+                    <img src="{{ url_for('static', filename='img/rainbow_bckg.png') }}" alt="">
+                </div>
+            </div>
+            <div class="header_home_cards">
+                <div class="board_card">
+                    <div class="flex_row_spacebetween">
+                        <span class="date">Lucie Hrbkova</span>
+                        <span class="date">10_10_2020</span>
+                    </div>
+                    <h2 class="board_header">Productivity Board Holiday</h2>
+                </div>
+                <div class="board_card">
+                    <div class="flex_row_spacebetween">
+                        <span class="date">Your badges</span>
+                    </div>
+                    <h2 class="board_header">Award Gallery</h2>
+                </div>
+            </div>
+            <div class="header_home_cards">
+                <div class="board_card">
+                    <div class="flex_row_spacebetween">
+                        <span class="date">Lucie Hrbkova</span>
+                        <span class="date">10_10_2020</span>
+                    </div>
+                    <h2 class="board_header">Productivity Board Holiday</h2>
+                </div>
+                <div class="board_card">
+                    <div class="flex_row_spacebetween">
+                        <span class="date">your reports</span>
+                    </div>
+                    <h2 class="board_header">Analytics</h2>
+                </div>
+            </div>
+        </section>        
+    </section>
+<script>
+    // _____________________dropdown menu_______________________________ 
+
+    function openNav() 
+        {
+            document.getElementById("dropdown_menu").style.display = "block";
+            document.getElementById("menu_img").src = "{{ url_for('static', filename='img/close_menu.png') }}";
+            document.getElementById("btn_menu").setAttribute("onClick", "closeNav()");
+        }
+    
+        function closeNav() 
+        {
+            document.getElementById("dropdown_menu").style.display = "none";
+            document.getElementById("menu_img").src = "{{ url_for('static', filename='img/menu.png') }}";
+            document.getElementById("btn_menu").setAttribute("onClick", "openNav()");
+        }
+</script>
+</body>
+</html>
