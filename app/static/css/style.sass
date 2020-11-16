@@ -283,17 +283,74 @@ li
 // *************** cards *******************
 // list
 .card
-    width: 240px
-    height: 240px
+    width: 220px
+    min-height: 220px
     border: 1px solid $grey
     border-radius: 1rem
     margin-right: 20px
     background: $purple
+    padding: 10px
     &:hover
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4)
     @media screen and ( max-width: 900px )
         margin-bottom: 20px
         margin-right: 0px
+    .card_list
+        // background: red
+        list-style-type: none
+        padding: 0px
+        margin: 10px 0px 5px 0px
+    .task
+        padding: 2px 0px
+        border-bottom: 0.2px solid
+        display: flex
+        justify-content: space-between
+    .task_text
+        font-size: 0.875rem
+        width: 150px
+        padding-left: 5px
+    .edit_button
+        width: 15px
+    .input
+        cursor: pointer
+        width: 1rem
+        height: 1rem
+        margin: 0px
+        margin-top: 2px
+        border: 0px
+        &:focus
+            outline: none
+    .new_task_form
+        width: 200px
+    .new_task_input
+        background: $purple
+        font-size: 0.875rem
+        padding-left: 30px
+        width: 170px
+        border: none
+        border-bottom: 0.5px solid
+        &:focus
+            outline: none
+    .new_task_submit
+        font-size: 0.875rem
+        width: 22px
+        border-radius: 30px
+        &:focus
+            outline: none
+    .new_card_form
+        margin-top: 20px
+        width: 200px
+        display: flex
+        flex-direction: column
+        align-items: center
+    .new_card_input
+        width: 170px
+        margin: 5px 0px
+    .new_card_submit
+        margin-top: 30px
+        width: 170px
+        
+            
 // board
 .board_card
     width: 406px

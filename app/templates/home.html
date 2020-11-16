@@ -14,7 +14,7 @@
     </div>
     <div class="header_home_cards">
         {% for board in boards %}
-        <a href="{{ url_for('board', boardid=board['title']) }}"><div class="board_card">
+        <a href="{{ url_for('board', boardid=board['id']) }}"><div class="board_card">
             <div class="flex_row_spacebetween">
                 <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
                 <span class="date">10_10_2020 {{ board.id }}</span>

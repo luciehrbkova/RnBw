@@ -1,0 +1,86 @@
+{% extends "applayout.html" %}
+
+
+
+{% block rainbow %}
+<div class="rainbow_box flex_center">
+    <div class="rainbox_dimensions">
+        <img src="{{ url_for('static', filename='img/rainbow.png') }}" alt="">
+    </div>
+</div>
+{% endblock %}
+ <!--block main ----------------------------------- -->
+ {% block main %}
+ <!-- ***************** MAIN SECTION **************************** -->
+ <section class="main no_overflow flex-wrap flex_start">
+    <!-- {% for board in boards %}
+    <a href="{{ url_for('board', boardid=board['title']) }}"><div class="board_card">
+            <div class="flex_row_spacebetween">
+                <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
+                <span class="date">10_10_2020 {{ board.id }}</span>
+            </div>
+            <h2 class="board_header">{{ board.title }}</h2>
+        </div></a>
+    {% endfor %} -->
+    <div class="card">
+        <div class="flex_row_spacebetween">
+            <span class="date">Create new list</span>
+        </div>
+        <form action="" class="new_card_form">
+            <input type="text" class="new_card_input">
+            <input type="date" class="new_card_input">
+            <input type="submit" vlaue="Create" class="new_card_submit" >
+        </form>
+
+    </div>
+
+    <div class="card">
+        <div class="flex_row_spacebetween">
+            <span class="date">{{ key }}</span>
+            <span class="date">10_11_2020</span>
+        </div>
+        <ul class=card_list>
+            <li class="task">
+                <input type="checkbox" class="input">
+                <span class="task_text">Something to do</span>
+                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+            </li>
+            <li class="task">
+                <input type="checkbox" class="input">
+                <span class="task_text">Something to do</span>
+                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+            </li>
+            <li class="task">
+                <input type="checkbox" class="input">
+                <span class="task_text">Something to project</span>
+                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+            </li>
+            <li class="task">
+                <input type="checkbox" class="input">
+                <span class="task_text">Something to do</span>
+                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+            </li>
+        </ul>
+        <form action="" class="new_task_form">
+            <input type="text" class="new_task_input">
+            <input type="submit" class="new_task_submit" value="+">
+        </form>
+
+    </div>
+
+
+ </section> 
+{% endblock %}  
+
+<!--block dashboard ----------------------------------- -->
+{% block dashboard %} 
+<!-- ***************** DASHBOARD **************************** -->
+<div class="dashboard flex_row_spacebetween">
+    <div class="column">
+        <span class="name">{{ current_user.name }},</span>
+        <p class="message">{{ greeting }}</p>
+    </div>
+    <div class="column tablet_none">
+    </div>
+</div>
+{% endblock %}
