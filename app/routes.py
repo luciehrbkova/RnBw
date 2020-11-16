@@ -59,11 +59,12 @@ def home():
     recentboards = Board.query.order_by(Board.id.desc()).limit(2).all()
     return render_template('home.html', title='Home', boards=recentboards, user=user)
 
-@app.route("/myboards")
+@app.route("/myboards", methods=['GET', 'POST'])
 @login_required
 def myboards():
     user = current_user
     boards = user.boards.all()
+    # thisboard = board.id
     return render_template('myboards.html', title='My Boards', boards=boards, user=user, greeting="What do you want to work on, today!")
 
 @app.route("/awards")
@@ -93,10 +94,22 @@ def newboard():
 @app.route("/board/<boardid>")
 @login_required
 def board(boardid):
-    # print(boardid)
-#     return board.id
-    return render_template('myboards.html', title=boardid, greeting="Let's do it!")
+    user = current_user
+    boards = user.boards.all()
+    thisboard = Board.query.filter_by(id=boardid).first()
+    print (thisboard.title)
+    print (thisboard.id)
+   
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards)
+
 
 @app.route("/test")
 def test():
-    return app.config['SECRET_KEY']
+    # return app.config['SECRET_KEY']
+    user = current_user
+    displayBoard = user.boards.all()
+    # sss = Board.query.filter_by(title="New Board")
+
+
+    return render_template('testboard.html', boards=displayBoard, user=user, title='test', greeting="Let's do it!",)
+

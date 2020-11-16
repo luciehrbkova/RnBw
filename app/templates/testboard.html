@@ -4,18 +4,24 @@
  {% block main %}
  <!-- ***************** MAIN SECTION **************************** -->
  <section class="main no_overflow flex-wrap flex_start">
-    {% for board in boards %}
-    <a href="{{ url_for('board', boardid=board['id']) }}"><div class="board_card">
+    <!-- {% for board in boards %}
+    <a href="{{ url_for('board', boardid=board['title']) }}"><div class="board_card">
             <div class="flex_row_spacebetween">
                 <span class="date">{{ board.author.name }} {{ board.author.surname }} </span>
                 <span class="date">10_10_2020 {{ board.id }}</span>
             </div>
             <h2 class="board_header">{{ board.title }}</h2>
-            
         </div></a>
-    {% endfor %}
+    {% endfor %} -->
 
     {{ books}}
+        {% for board in boards %}
+            {% if board.id >8 %}
+        
+            <h1>{{ board.title}}</h1>
+            <h1>{{ board.id}}</h1>
+            {% endif %}
+        {% endfor %}
 
 
  </section> 

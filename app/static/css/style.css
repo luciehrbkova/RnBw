@@ -430,12 +430,13 @@ li {
 }
 
 .card {
-  width: 240px;
-  height: 240px;
+  width: 220px;
+  min-height: 220px;
   border: 1px solid #D2CED1;
   border-radius: 1rem;
   margin-right: 20px;
   background: #F7EDFF;
+  padding: 10px;
 }
 
 .card:hover {
@@ -448,6 +449,98 @@ li {
     margin-bottom: 20px;
     margin-right: 0px;
   }
+}
+
+.card .card_list {
+  list-style-type: none;
+  padding: 0px;
+  margin: 10px 0px 5px 0px;
+}
+
+.card .task {
+  padding: 2px 0px;
+  border-bottom: 0.2px solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.card .task_text {
+  font-size: 0.875rem;
+  width: 150px;
+  padding-left: 5px;
+}
+
+.card .edit_button {
+  width: 15px;
+}
+
+.card .input {
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  margin: 0px;
+  margin-top: 2px;
+  border: 0px;
+}
+
+.card .input:focus {
+  outline: none;
+}
+
+.card .new_task_form {
+  width: 200px;
+}
+
+.card .new_task_input {
+  background: #F7EDFF;
+  font-size: 0.875rem;
+  padding-left: 30px;
+  width: 170px;
+  border: none;
+  border-bottom: 0.5px solid;
+}
+
+.card .new_task_input:focus {
+  outline: none;
+}
+
+.card .new_task_submit {
+  font-size: 0.875rem;
+  width: 22px;
+  border-radius: 30px;
+}
+
+.card .new_task_submit:focus {
+  outline: none;
+}
+
+.card .new_card_form {
+  margin-top: 20px;
+  width: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card .new_card_input {
+  width: 170px;
+  margin: 5px 0px;
+}
+
+.card .new_card_submit {
+  margin-top: 30px;
+  width: 170px;
 }
 
 .board_card {
