@@ -1,9 +1,9 @@
 from flask import render_template, url_for, redirect, flash
 from app import app
 from app import db
-from app.forms import LoginForm, RegistrationForm, BoardForm
+from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm
 from flask_login import current_user, login_user
-from app.models import User, Board
+from app.models import User, Board, Card
 from flask_login import logout_user, login_required
 
 @app.route("/")
@@ -91,7 +91,7 @@ def newboard():
         # return redirect(url_for('board/board['title']')
     return render_template('board.html', title='New Board', form=form, greeting="Let's start with creating new board!")
 
-@app.route("/board/<boardid>")
+@app.route("/board/<boardid>", methods=['GET', 'POST'])
 @login_required
 def board(boardid):
     user = current_user
@@ -99,8 +99,18 @@ def board(boardid):
     thisboard = Board.query.filter_by(id=boardid).first()
     print (thisboard.title)
     print (thisboard.id)
+
+    form = CardForm()
+    if form.validate_on_submit():
+        card = Card(header=form.header.data, date=form.date.data, motherboard=thisboard)
+        db.session.add(card)
+        db.session.commit() 
+
+    cards = thisboard.cards.all()
+    print (cards)
+
    
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards)
 
 
 @app.route("/test")
