@@ -27,6 +27,16 @@ class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(24), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    cards = db.relationship('Card', backref='motherboard', lazy='dynamic')
     def __repr__(self):
         return '<Board {}'.format(self.title)
+
+class Card(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    header = db.Column(db.String(20))
+    date = db.Column(db.Date, index=True)
+    completed = db.Column(db.Boolean, default=False, nullable=False)
+    board_id = db.Column(db.Integer, db.ForeignKey('board.id'))
+
+    def __repr__(self):
+        return '<Card {}'.format(self.header)

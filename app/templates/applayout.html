@@ -38,6 +38,16 @@
                 <a href="{{ url_for('logout') }}"><li class="menu_item">Sign Out</li></a>
             </ul>
         </div>
+         <!-- flash message -->
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+         {% for message in messages %}
+         <div class="fm_box">
+             <span class="flash_message">{{ message }}</span>
+         </div>
+         {% endfor %}
+         {% endif %}
+         {% endwith %}
 
 
         {% endblock %}

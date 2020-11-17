@@ -1,9 +1,9 @@
-from flask import render_template, url_for, redirect, flash
+from flask import render_template, url_for, redirect, flash, request
 from app import app
 from app import db
-from app.forms import LoginForm, RegistrationForm, BoardForm
+from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm
 from flask_login import current_user, login_user
-from app.models import User, Board
+from app.models import User, Board, Card
 from flask_login import logout_user, login_required
 
 @app.route("/")
@@ -91,7 +91,7 @@ def newboard():
         # return redirect(url_for('board/board['title']')
     return render_template('board.html', title='New Board', form=form, greeting="Let's start with creating new board!")
 
-@app.route("/board/<boardid>")
+@app.route("/board/<boardid>", methods=['GET', 'POST'])
 @login_required
 def board(boardid):
     user = current_user
@@ -99,8 +99,31 @@ def board(boardid):
     thisboard = Board.query.filter_by(id=boardid).first()
     print (thisboard.title)
     print (thisboard.id)
-   
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards)
+    thisboardid = thisboard.id
+    form = CardForm()
+
+    if form.validate_on_submit():
+        cardtaken = Card.query.filter_by(date=form.date.data).filter_by(board_id=thisboardid).first()
+        if cardtaken is None:
+            card = Card(header=form.header.data, date=form.date.data, motherboard=thisboard)
+            db.session.add(card)
+            db.session.commit()
+        # flash('You have only 1 card per day on your Board!')
+        print('Card taken, choose another date')
+        
+        
+        # print(card.id)
+        # print("cardtaken is:")
+        # print(cardtaken)
+
+    cards = thisboard.cards.order_by(Card.date).all()
+
+    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
+    # print(allcardsonboard)
+    # count = Card.query.filter_by(board_id=thisboardid).count()
+    # print(count)
+    # print (cards)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards)
 
 
 @app.route("/test")

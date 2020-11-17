@@ -26,39 +26,47 @@
         <div class="flex_row_spacebetween">
             <span class="date">Create new list</span>
         </div>
-        <form action="" class="new_card_form">
-            <input type="text" class="new_card_input">
-            <input type="date" class="new_card_input">
-            <input type="submit" vlaue="Create" class="new_card_submit" >
+        <form action="" class="new_card_form" method="POST">
+            {{ form.hidden_tag() }}
+            <!-- {{ form.header }} -->
+            {{ form.header(placeholder="New Board Title",type="text" ,class="new_card_input") }}
+            <!-- <input type="text" class="new_card_input"> -->
+            <!-- {{ form.date }} -->
+            {{ form.date(type="date" ,class="new_card_input") }}
+            <!-- <input type="date" class="new_card_input"> -->
+            <!-- {{ form.submit.label }} -->
+            {{ form.submit(class='new_card_submit', type="submit") }}
+            <!-- <input type="submit" value="Create" class="new_card_submit" > -->
         </form>
 
     </div>
 
+    {% for card in cards %}
     <div class="card">
         <div class="flex_row_spacebetween">
-            <span class="date">{{ key }}</span>
-            <span class="date">10_11_2020</span>
+            <span class="date">{{ card.header }}</span>
+            <span class="date">{{ card.date }}{{ card.board_id }}</span>
         </div>
         <ul class=card_list>
             <li class="task">
                 <input type="checkbox" class="input">
                 <span class="task_text">Something to do</span>
-                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
             </li>
             <li class="task">
                 <input type="checkbox" class="input">
                 <span class="task_text">Something to do</span>
-                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
             </li>
             <li class="task">
                 <input type="checkbox" class="input">
                 <span class="task_text">Something to project</span>
-                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
             </li>
             <li class="task">
                 <input type="checkbox" class="input">
                 <span class="task_text">Something to do</span>
-                <div class="edit_button"><img src="img/edit.png" alt=""></div>
+                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
             </li>
         </ul>
         <form action="" class="new_task_form">
@@ -67,6 +75,7 @@
         </form>
 
     </div>
+    {% endfor %}
 
 
  </section> 

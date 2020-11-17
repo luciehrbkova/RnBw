@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField
 from wtforms.fields.html5 import EmailField  
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 from app.models import User
@@ -25,4 +25,9 @@ class RegistrationForm(FlaskForm):
 
 class BoardForm(FlaskForm):
     title = StringField('New Board Title', validators=[DataRequired()])
+    submit = SubmitField('Create')
+
+class CardForm(FlaskForm):
+    header = StringField('Card Header', validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()])
     submit = SubmitField('Create')
