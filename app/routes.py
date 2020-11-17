@@ -56,7 +56,7 @@ def register():
 @login_required
 def home():
     user = current_user
-    recentboards = Board.query.order_by(Board.id.desc()).limit(2).all()
+    recentboards = user.boards.order_by(Board.id.desc()).limit(2).all()
     return render_template('home.html', title='Home', boards=recentboards, user=user)
 
 @app.route("/myboards", methods=['GET', 'POST'])
