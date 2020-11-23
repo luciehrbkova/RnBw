@@ -1,9 +1,9 @@
 from flask import render_template, url_for, redirect, flash, request
 from app import app
 from app import db
-from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm
+from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm
 from flask_login import current_user, login_user
-from app.models import User, Board, Card
+from app.models import User, Board, Card, Task
 from flask_login import logout_user, login_required
 
 @app.route("/")
@@ -102,6 +102,7 @@ def board(boardid):
     thisboardid = thisboard.id
     form = CardForm()
 
+    # form for cards
     if form.validate_on_submit():
         cardtaken = Card.query.filter_by(date=form.date.data).filter_by(board_id=thisboardid).first()
         if cardtaken is None:
@@ -110,20 +111,56 @@ def board(boardid):
             db.session.commit()
         # flash('You have only 1 card per day on your Board!')
         print('Card taken, choose another date')
-        
-        
         # print(card.id)
         # print("cardtaken is:")
         # print(cardtaken)
+   
+
+    
+
+    # form for tasks
+    formTask = TaskForm()
+    if formTask.validate_on_submit():
+        task = Task(card_id=formTask.card_id.data, tasktext=formTask.tasktext.data)
+        db.session.add(task)
+        db.session.commit()
+        return redirect(url_for('board', boardid=boardid))
 
     cards = thisboard.cards.order_by(Card.date).all()
 
-    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
-    # print(allcardsonboard)
-    # count = Card.query.filter_by(board_id=thisboardid).count()
-    # print(count)
-    # print (cards)
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards)
+    for card in cards:
+        # if card.id > 55:
+        #     print (card.id)
+        print (card.header)
+        cardid= card.id
+        print("tohle je card ID")
+        print(cardid)
+    allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
+    print(allcardsonboard)
+    count = Card.query.filter_by(board_id=thisboardid).count()
+    print(count)
+
+    tasks = Task.query.all()
+    # print (tasks)
+    print (cards)
+
+
+    for card in cards:
+        if card.board_id == thisboard:
+            cardId = card.id
+            for task in tasks:
+                # if task.card_id = cardId:
+                tasksOnCard = Task.query.filter_by(card_id=cardId).all()
+            
+            print('This is card id: !!!!!')
+            print(cardId)
+            print(tasksOnCard)
+
+    
+
+    
+
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks)
 
 
 @app.route("/test")
