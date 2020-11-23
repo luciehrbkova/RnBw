@@ -53,7 +53,11 @@
                     <li class="task">
                         <input type="checkbox" class="input">
                         <span class="task_text">{{ task.tasktext }}</span>
-                        <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
+                        <form action="" class="new_task_form" method="POST" style="width:21px">
+                            {{ formDeleteTask.hidden_tag() }}
+                            {{ formDeleteTask.id(value=task.id, style="display:none")}}
+                            {{ formDeleteTask.submit(class="delete_task_submit", type="submit", value="–⁠") }}
+                        </form>
                     </li>
                 {% endif %}
             {% endfor %}
@@ -67,6 +71,9 @@
             {{ formTask.submit(class="new_task_submit", type="submit", value="+") }}
             <!-- <input type="submit" class="new_task_submit" value="+"> -->
         </form>
+        <!-- <form action="" class="new_task_form" method="POST">
+            <input type="submit" value="REMOVE CARD">
+        </form> -->
 
     </div>
     {% endfor %}

@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, flash, request
 from app import app
 from app import db
-from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm
+from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm, DeleteTaskForm
 from flask_login import current_user, login_user
 from app.models import User, Board, Card, Task
 from flask_login import logout_user, login_required
@@ -116,8 +116,6 @@ def board(boardid):
         # print(cardtaken)
    
 
-    
-
     # form for tasks
     formTask = TaskForm()
     if formTask.validate_on_submit():
@@ -126,41 +124,55 @@ def board(boardid):
         db.session.commit()
         return redirect(url_for('board', boardid=boardid))
 
+    # display all card on this board________________
     cards = thisboard.cards.order_by(Card.date).all()
-
-    for card in cards:
-        # if card.id > 55:
-        #     print (card.id)
-        print (card.header)
-        cardid= card.id
-        print("tohle je card ID")
-        print(cardid)
-    allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
-    print(allcardsonboard)
-    count = Card.query.filter_by(board_id=thisboardid).count()
-    print(count)
-
+    #display all tasks______________________________
     tasks = Task.query.all()
+
+    # for card in cards:
+    #     # if card.id > 55:
+    #     #     print (card.id)
+    #     print (card.header)
+    #     cardid= card.id
+    #     print("tohle je card ID")
+    #     print(cardid)
+    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
+    # print(allcardsonboard)
+    # count = Card.query.filter_by(board_id=thisboardid).count()
+    # print(count)
+
+    
     # print (tasks)
     print (cards)
 
+    # Delete task form
+    formDeleteTask = DeleteTaskForm()
+    if formDeleteTask.validate_on_submit():
+        taskToDelete = Task.query.filter_by(id=formDeleteTask.id.data).first()
+        db.session.delete(taskToDelete)
+        db.session.commit()
+        return redirect(url_for('board', boardid=boardid))
+        print(taskToDelete)
+    
 
-    for card in cards:
-        if card.board_id == thisboard:
-            cardId = card.id
-            for task in tasks:
-                # if task.card_id = cardId:
-                tasksOnCard = Task.query.filter_by(card_id=cardId).all()
+
+    # for card in cards:
+    #     if card.board_id == thisboard:
+    #         cardId = card.id
+    #         for task in tasks:
+    #             # if task.card_id = cardId:
+    #             tasksOnCard = Task.query.filter_by(card_id=cardId).all()
             
-            print('This is card id: !!!!!')
-            print(cardId)
-            print(tasksOnCard)
+    #         print('This is card id: !!!!!')
+    #         print(cardId)
+    #         print(tasksOnCard)
+
 
     
 
     
 
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask)
 
 
 @app.route("/test")
