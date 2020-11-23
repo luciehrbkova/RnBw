@@ -45,33 +45,27 @@
     <div class="card">
         <div class="flex_row_spacebetween">
             <span class="date">{{ card.header }}</span>
-            <span class="date">{{ card.date }}{{ card.board_id }}</span>
+            <span class="date">{{ card.date }}/{{ card.board_id }}/{{ card.id }}</span>
         </div>
         <ul class=card_list>
-            <li class="task">
-                <input type="checkbox" class="input">
-                <span class="task_text">Something to do</span>
-                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
-            </li>
-            <li class="task">
-                <input type="checkbox" class="input">
-                <span class="task_text">Something to do</span>
-                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
-            </li>
-            <li class="task">
-                <input type="checkbox" class="input">
-                <span class="task_text">Something to project</span>
-                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
-            </li>
-            <li class="task">
-                <input type="checkbox" class="input">
-                <span class="task_text">Something to do</span>
-                <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
-            </li>
+            {% for task in tasks %}
+                {% if task.card_id == card.id %}
+                    <li class="task">
+                        <input type="checkbox" class="input">
+                        <span class="task_text">{{ task.tasktext }}</span>
+                        <div class="edit_button"><img src="{{ url_for('static', filename='img/edit.png') }}" alt=""></div>
+                    </li>
+                {% endif %}
+            {% endfor %}
         </ul>
-        <form action="" class="new_task_form">
-            <input type="text" class="new_task_input">
-            <input type="submit" class="new_task_submit" value="+">
+        <form action="" class="new_task_form" method="POST">
+            {{ formTask.hidden_tag() }}
+            {{ formTask.card_id(value=card.id, style="display:none")}}
+            <!-- <input type="number" class="new_task_input" value ="{{ card.id }}" style="display:none"> -->
+            {{ formTask.tasktext(type="text" ,placeholder="",class="new_task_input") }}
+            <!-- <input type="text" class="new_task_input"> -->
+            {{ formTask.submit(class="new_task_submit", type="submit", value="+") }}
+            <!-- <input type="submit" class="new_task_submit" value="+"> -->
         </form>
 
     </div>
