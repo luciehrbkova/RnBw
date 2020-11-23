@@ -39,4 +39,4 @@ class Card(db.Model):
     board_id = db.Column(db.Integer, db.ForeignKey('board.id'))
 
     def __repr__(self):
-        return '<Card {}'.format(self.header)
+        return '<Card {}'.format(self.id)

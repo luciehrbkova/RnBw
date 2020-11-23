@@ -118,11 +118,11 @@ def board(boardid):
 
     cards = thisboard.cards.order_by(Card.date).all()
 
-    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
-    # print(allcardsonboard)
-    # count = Card.query.filter_by(board_id=thisboardid).count()
-    # print(count)
-    # print (cards)
+    allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
+    print(allcardsonboard)
+    count = Card.query.filter_by(board_id=thisboardid).count()
+    print(count)
+    print (cards)
     return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards)
 
 
