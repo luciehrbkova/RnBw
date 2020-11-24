@@ -26,6 +26,7 @@
         <div class="flex_row_spacebetween">
             <span class="date">Create new list</span>
         </div>
+        <!-- FORM ADD CARD -->
         <form action="" class="new_card_form" method="POST">
             {{ form.hidden_tag() }}
             <!-- {{ form.header }} -->
@@ -53,6 +54,7 @@
                     <li class="task">
                         <input type="checkbox" class="input">
                         <span class="task_text">{{ task.tasktext }}</span>
+                        <!-- FORM DELETE TASK -->
                         <form action="" class="new_task_form" method="POST" style="width:21px">
                             {{ formDeleteTask.hidden_tag() }}
                             {{ formDeleteTask.id(value=task.id, style="display:none")}}
@@ -62,6 +64,7 @@
                 {% endif %}
             {% endfor %}
         </ul>
+        <!-- FORM ADD TASK -->
         <form action="" class="new_task_form" method="POST">
             {{ formTask.hidden_tag() }}
             {{ formTask.card_id(value=card.id, style="display:none")}}
@@ -71,10 +74,14 @@
             {{ formTask.submit(class="new_task_submit", type="submit", value="+") }}
             <!-- <input type="submit" class="new_task_submit" value="+"> -->
         </form>
-        <!-- <form action="" class="new_task_form" method="POST">
-            <input type="submit" value="REMOVE CARD">
-        </form> -->
-
+        <div class="delete_card_form_box">
+            <!-- FORM DELETE CARD -->
+            <form action="" class="delete_card_form" method="POST">
+                {{ formDeleteCard.hidden_tag() }}
+                {{ formDeleteCard.id(value=card.id, style="display:none")}}
+                {{ formDeleteCard.submit( type="submit", value="REMOVE CARD⁠", class="date delete_card_submit") }}
+            </form>
+        </div>
     </div>
     {% endfor %}
 

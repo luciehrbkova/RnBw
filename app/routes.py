@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, flash, request
 from app import app
 from app import db
-from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm, DeleteTaskForm
+from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm, DeleteTaskForm, DeleteCardForm
 from flask_login import current_user, login_user
 from app.models import User, Board, Card, Task
 from flask_login import logout_user, login_required
@@ -153,7 +153,22 @@ def board(boardid):
         db.session.commit()
         return redirect(url_for('board', boardid=boardid))
         print(taskToDelete)
+
     
+    # Delete card form
+    formDeleteCard = DeleteCardForm()
+    if formDeleteCard.validate_on_submit():
+        if Task.query.filter_by(card_id=formDeleteCard.id.data).all() is None:
+            cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
+            db.session.delete(cardToDelete)
+            db.session.commit()
+            return redirect(url_for('board', boardid=boardid))
+        for task in Task.query.filter_by(card_id=formDeleteCard.id.data).all():
+            db.session.delete(task)
+            db.session.commit()
+            db.session.delete(cardToDelete)
+            db.session.commit()
+        return redirect(url_for('board', boardid=boardid))
 
 
     # for card in cards:
@@ -172,7 +187,7 @@ def board(boardid):
 
     
 
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard)
 
 
 @app.route("/test")

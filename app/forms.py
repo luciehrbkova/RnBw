@@ -41,6 +41,6 @@ class DeleteTaskForm(FlaskForm):
     id = IntegerField('Taskid', validators=[DataRequired()])
     submit = SubmitField('-')
 
-# class DeleteCardForm(FlaskForm):
-#     id = IntegerField('Taskid', validators=[DataRequired()])
-#     submit = SubmitField('-')
+class DeleteCardForm(FlaskForm):
+    id = IntegerField('Cardid', validators=[DataRequired()])
+    submit = SubmitField('REMOVE CARD')
