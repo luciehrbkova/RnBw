@@ -513,23 +513,9 @@ li {
   font-size: 0.875rem;
   width: 22px;
   border-radius: 30px;
-  color: #4D4D4D;
 }
 
 .card .new_task_submit:focus {
-  outline: none;
-}
-
-.card .delete_task_submit {
-  font-size: 0.875rem;
-  padding: 0px 4px;
-  border: 0.5px solid #D2CED1;
-  border-radius: 30px;
-  color: #D2CED1;
-  background: #FAFAFA;
-}
-
-.card .delete_task_submit:focus {
   outline: none;
 }
 
@@ -556,22 +542,6 @@ li {
 .card .new_card_submit {
   margin-top: 30px;
   width: 170px;
-}
-
-.card .delete_card_form_box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.card .delete_card_form {
-  border: transparent;
-}
-
-.card .delete_card_submit {
-  border: none;
-  background: transparent;
-  color: #D2CED1;
 }
 
 .board_card {
