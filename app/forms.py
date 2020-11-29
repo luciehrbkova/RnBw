@@ -36,16 +36,3 @@ class TaskForm(FlaskForm):
     card_id = IntegerField('Cardid', validators=[DataRequired()])
     tasktext = StringField('Task', validators=[DataRequired()])
     submit = SubmitField('+')
-
-class DeleteTaskForm(FlaskForm):
-    id = IntegerField('Taskid', validators=[DataRequired()])
-    submit1 = SubmitField('-')
-
-class DoneTaskForm(FlaskForm):
-    id = IntegerField('Taskid', validators=[DataRequired()])
-    # done = BooleanField('Done', validators=[DataRequired()])
-    submit3 = SubmitField('✔️')
-
-class DeleteCardForm(FlaskForm):
-    id = IntegerField('Cardid', validators=[DataRequired()])
-    submit2 = SubmitField('REMOVE CARD')
