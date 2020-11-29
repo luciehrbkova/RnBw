@@ -142,13 +142,13 @@ def board(boardid):
     # print(count)
 
     # Done task form
-    formDoneTask = DoneTaskForm()
-    if formDoneTask.submit3 and formDoneTask.validate():
-        taskDone = Task.query.filter_by(id=formDoneTask.id.data).first()
-        taskDone.done = True
-        db.session.commit()
-        return redirect(url_for('board', boardid=boardid))
-        print(taskDone)
+    # formDoneTask = DoneTaskForm()
+    # if formDoneTask.submit3 and formDoneTask.validate():
+    #     taskDone = Task.query.filter_by(id=formDoneTask.id.data).first()
+    #     taskDone.done = True
+    #     db.session.commit()
+    #     return redirect(url_for('board', boardid=boardid))
+    #     print(taskDone)
 
     
     # print (tasks)
@@ -196,7 +196,7 @@ def board(boardid):
 
     
 
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard)
 
 
 @app.route("/test")
