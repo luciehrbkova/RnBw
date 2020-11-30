@@ -55,6 +55,7 @@
                         <!-- <input type="checkbox" class="input"> -->
                         <form action="" class="new_task_form" method="POST" style="width:21px">
                             {{ formDoneTask.hidden_tag() }}
+                            <input type="hidden" name="form-name" value="form-taskDone">
                             {{ formDoneTask.id(value=task.id, style="display:none")}}
                             {{ formDoneTask.submit3(class="delete_task_submit", type="submit", value="✓") }}
                         </form>
@@ -64,6 +65,7 @@
                         <!-- FORM DELETE TASK -->
                         <form action="" class="new_task_form" method="POST" style="width:21px">
                             {{ formDeleteTask.hidden_tag() }}
+                            <input type="hidden" name="form-name" value="form-taskDelete">
                             {{ formDeleteTask.id(value=task.id, style="display:none")}}
                             {{ formDeleteTask.submit1(class="delete_task_submit", type="submit", value="–⁠") }}
                         </form>
