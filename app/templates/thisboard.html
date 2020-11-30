@@ -111,6 +111,12 @@
         <p class="message">{{ greeting }}</p>
     </div>
     <div class="column tablet_none">
+        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
+        <p class="text_center">Get award for today!</p>
+    </div>
+    <div class="column mobile_none">
+        <p class="quote">“The secret of getting ahead is getting started.”</p>
+        <span class="author date">Mark twain</span>
     </div>
 </div>
 {% endblock %}
