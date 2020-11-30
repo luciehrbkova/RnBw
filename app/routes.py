@@ -141,31 +141,39 @@ def board(boardid):
     # count = Card.query.filter_by(board_id=thisboardid).count()
     # print(count)
 
+     # Delete task form
+    formDeleteTask = DeleteTaskForm()
     # Done task form
-    # formDoneTask = DoneTaskForm()
-    # if formDoneTask.submit3 and formDoneTask.validate():
-    #     taskDone = Task.query.filter_by(id=formDoneTask.id.data).first()
-    #     taskDone.done = True
-    #     db.session.commit()
-    #     return redirect(url_for('board', boardid=boardid))
-    #     print(taskDone)
+    formDoneTask = DoneTaskForm()
+     # Delete card form
+    formDeleteCard = DeleteCardForm()
+   
 
     
     # print (tasks)
     print (cards)
 
     # Delete task form
-    formDeleteTask = DeleteTaskForm()
-    if formDeleteTask.validate_on_submit():
-        taskToDelete = Task.query.filter_by(id=formDeleteTask.id.data).first()
-        db.session.delete(taskToDelete)
-        db.session.commit()
-        return redirect(url_for('board', boardid=boardid))
-        print(taskToDelete)
+    if request.method =='POST':
+        form_name = request.form['form-name']
+        if form_name == 'form-taskDelete':
+            if formDeleteTask.validate_on_submit():
+                taskToDelete = Task.query.filter_by(id=formDeleteTask.id.data).first()
+                db.session.delete(taskToDelete)
+                db.session.commit()
+                return redirect(url_for('board', boardid=boardid))
+                print(taskToDelete)
+        elif form_name == 'form-taskDone':   
+            # Done task form
+            if formDoneTask.submit3 and formDoneTask.validate():
+                taskDone = Task.query.filter_by(id=formDoneTask.id.data).first()
+                taskDone.done = True
+                db.session.commit()
+                return redirect(url_for('board', boardid=boardid))
+                print(taskDone)
 
 
     # Delete card form
-    formDeleteCard = DeleteCardForm()
     if formDeleteCard.validate_on_submit():
         if Task.query.filter_by(card_id=formDeleteCard.id.data).all() is None:
             cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
@@ -196,7 +204,7 @@ def board(boardid):
 
     
 
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask)
 
 
 @app.route("/test")
