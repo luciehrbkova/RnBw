@@ -180,6 +180,11 @@ def board(boardid):
     #RAINBOW VALUE
     rainbowValue = numberDoneTasks/numberAllTasks
 
+    if rainbowValue == 0:
+        rainbowMeter = 350
+    elif rainbowValue != 0:
+        rainbowMeter = 150
+
     print("Todays card is:",cardForToday.header)
     print ("Number of all tasks = ", numberAllTasks)
     print ("Number of done tasks = ", numberDoneTasks)
@@ -219,7 +224,7 @@ def board(boardid):
 
     return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, 
     formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask, allTasksForToday=allTasksForToday,
-    doneTasksForToday=doneTasksForToday)
+    doneTasksForToday=doneTasksForToday, rainbowValue=rainbowValue, rainbowMeter=rainbowMeter)
 
 
 @app.route("/test")

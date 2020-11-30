@@ -4,7 +4,7 @@
 
 {% block rainbow %}
 <div class="rainbow_box flex_center">
-    <div class="rainbox_dimensions">
+    <div class="rainbox_dimensions" style="--rainbow_height-var:{{ rainbowMeter }}px">
         <img src="{{ url_for('static', filename='img/rainbow.png') }}" alt="">
     </div>
 </div>
