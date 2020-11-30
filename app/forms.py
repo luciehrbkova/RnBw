@@ -46,6 +46,11 @@ class DoneTaskForm(FlaskForm):
     # done = BooleanField('Done', validators=[DataRequired()])
     submit3 = SubmitField('✔️')
 
+# class UnDoneTaskForm(FlaskForm):
+#     id = IntegerField('Taskid', validators=[DataRequired()])
+    # done = BooleanField('Done', validators=[DataRequired()])
+    # submit4 = SubmitField('x')
+
 class DeleteCardForm(FlaskForm):
     id = IntegerField('Cardid', validators=[DataRequired()])
     submit2 = SubmitField('REMOVE CARD')

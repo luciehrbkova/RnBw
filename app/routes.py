@@ -145,6 +145,8 @@ def board(boardid):
     formDeleteTask = DeleteTaskForm()
     # Done task form
     formDoneTask = DoneTaskForm()
+    # Done task form
+    # formUnDoneTask = UnDoneTaskForm()
      # Delete card form
     formDeleteCard = DeleteCardForm()
    
@@ -167,9 +169,14 @@ def board(boardid):
             # Done task form
             if formDoneTask.submit3 and formDoneTask.validate():
                 taskDone = Task.query.filter_by(id=formDoneTask.id.data).first()
-                taskDone.done = True
-                db.session.commit()
-                return redirect(url_for('board', boardid=boardid))
+                if taskDone.done == False:
+                    taskDone.done = True
+                    db.session.commit()
+                    return redirect(url_for('board', boardid=boardid))
+                elif taskDone.done == True:
+                    taskDone.done = False
+                    db.session.commit()
+                    return redirect(url_for('board', boardid=boardid))
                 print(taskDone)
 
 
