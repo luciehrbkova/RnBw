@@ -52,13 +52,8 @@
             {% for task in tasks %}
                 {% if task.card_id == card.id %}
                     <li class="task">
-                        <!-- <input type="checkbox" class="input"> -->
+                        <input type="checkbox" class="input">
                         <!-- FORM Done TASK -->
-                        <!-- <form action="" class="new_task_form" method="POST" style="width:21px" id="formDone">
-                            {{ formDoneTask.hidden_tag() }}
-                            {{ formDoneTask.id(value=task.id, style="display:none")}}
-                            {{ formDoneTask.submit3(form="formDone", class="delete_task_submit", type="submit", value="⁠✔️") }}
-                        </form> -->
                         <span class="task_text">{{ task.tasktext }}</span>
                         <span class="task_text">{{ task.done }}</span>
                         <!-- FORM DELETE TASK -->
