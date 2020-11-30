@@ -5,6 +5,9 @@ from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm
 from flask_login import current_user, login_user
 from app.models import User, Board, Card, Task
 from flask_login import logout_user, login_required
+from datetime import date
+
+
 
 @app.route("/")
 def index():
@@ -100,55 +103,19 @@ def board(boardid):
     print (thisboard.title)
     print (thisboard.id)
     thisboardid = thisboard.id
-
-    # form for cards
-    
-        # flash('You have only 1 card per day on your Board!')
-        # print('Card taken, choose another date')
-        # print(card.id)
-        # print("cardtaken is:")
-        # print(cardtaken)
-   
-
-    
-    
-
     # display all card on this board________________
     cards = thisboard.cards.order_by(Card.date).all()
+    print (cards)
     #display all tasks______________________________
     tasks = Task.query.all()
-
-    # for card in cards:
-    #     # if card.id > 55:
-    #     #     print (card.id)
-    #     print (card.header)
-    #     cardid= card.id
-    #     print("tohle je card ID")
-    #     print(cardid)
-    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
-    # print(allcardsonboard)
-    # count = Card.query.filter_by(board_id=thisboardid).count()
-    # print(count)
-
-    # form for Cards
+    # forms__________________________________________
     form = CardForm()
-    # form for tasks
     formTask = TaskForm()
-    # Delete task form
     formDeleteTask = DeleteTaskForm()
-    # Done task form
     formDoneTask = DoneTaskForm()
-    # Done task form
-    # formUnDoneTask = UnDoneTaskForm()
-     # Delete card form
     formDeleteCard = DeleteCardForm()
    
-
-    
-    # print (tasks)
-    print (cards)
-
-    # Delete task form
+    # forms___________________________________________
     if request.method =='POST':
         form_name = request.form['form-name']
         if form_name == 'form-newCard':
@@ -200,6 +167,27 @@ def board(boardid):
                     db.session.delete(cardToDelete)
                     db.session.commit()
                 return redirect(url_for('board', boardid=boardid))
+    # dashboard____________________________________________________________________________
+    today = str(date.today())
+    #CARD
+    cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
+    #TODAYS TASKS
+    allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
+    numberAllTasks = len(allTasksForToday)
+    #DONE TODAYS TASKS
+    doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
+    numberDoneTasks = len(doneTasksForToday)    
+    #RAINBOW VALUE
+    rainbowValue = numberDoneTasks/numberAllTasks
+
+    print("Todays card is:",cardForToday.header)
+    print ("Number of all tasks = ", numberAllTasks)
+    print ("Number of done tasks = ", numberDoneTasks)
+    print ("Rainbow value = ", rainbowValue)
+
+    if cardForToday:
+        dashboardAwardTitle = "Get award for today!"
+
 
 
     # for card in cards:
@@ -214,11 +202,24 @@ def board(boardid):
     #         print(tasksOnCard)
 
 
+  # for card in cards:
+    #     # if card.id > 55:
+    #     #     print (card.id)
+    #     print (card.header)
+    #     cardid= card.id
+    #     print("tohle je card ID")
+    #     print(cardid)
+    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
+    # print(allcardsonboard)
+    # count = Card.query.filter_by(board_id=thisboardid).count()
+    # print(count)
     
 
     
 
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask)
+    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, 
+    formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask, allTasksForToday=allTasksForToday,
+    doneTasksForToday=doneTasksForToday)
 
 
 @app.route("/test")

@@ -62,7 +62,7 @@
                                 {{ formDoneTask.submit3(class="done_task_submit", type="submit", value="✓", style="background:lightgreen") }}    
                             {% endif %}
                         </form>
-                        <span class="task_text">{{ task.tasktext }}</span>
+                        <span class="task_text">{{ task.tasktext }}{{ task.id }}</span>
                         <!-- <span class="task_text">{{ task.done }}</span> -->
                         <!-- FORM DELETE TASK -->
                         <form action="" class="new_task_form" method="POST" style="width:21px">
@@ -112,7 +112,14 @@
     </div>
     <div class="column tablet_none">
         <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <p class="text_center">Get award for today!</p>
+        
+        
+            <p class="text_center">Get your Award today!! 
+            {% for task in doneTasksForToday %}
+                {{task.id}}
+            {% endfor %}
+            </p>
+        
     </div>
     <div class="column mobile_none">
         <p class="quote">“The secret of getting ahead is getting started.”</p>
