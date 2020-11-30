@@ -100,29 +100,18 @@ def board(boardid):
     print (thisboard.title)
     print (thisboard.id)
     thisboardid = thisboard.id
-    form = CardForm()
 
     # form for cards
-    if form.validate_on_submit():
-        cardtaken = Card.query.filter_by(date=form.date.data).filter_by(board_id=thisboardid).first()
-        if cardtaken is None:
-            card = Card(header=form.header.data, date=form.date.data, motherboard=thisboard)
-            db.session.add(card)
-            db.session.commit()
+    
         # flash('You have only 1 card per day on your Board!')
-        print('Card taken, choose another date')
+        # print('Card taken, choose another date')
         # print(card.id)
         # print("cardtaken is:")
         # print(cardtaken)
    
 
-    # form for tasks
-    formTask = TaskForm()
-    if formTask.validate_on_submit():
-        task = Task(card_id=formTask.card_id.data, tasktext=formTask.tasktext.data)
-        db.session.add(task)
-        db.session.commit()
-        return redirect(url_for('board', boardid=boardid))
+    
+    
 
     # display all card on this board________________
     cards = thisboard.cards.order_by(Card.date).all()
@@ -141,7 +130,11 @@ def board(boardid):
     # count = Card.query.filter_by(board_id=thisboardid).count()
     # print(count)
 
-     # Delete task form
+    # form for Cards
+    form = CardForm()
+    # form for tasks
+    formTask = TaskForm()
+    # Delete task form
     formDeleteTask = DeleteTaskForm()
     # Done task form
     formDoneTask = DoneTaskForm()
@@ -158,7 +151,20 @@ def board(boardid):
     # Delete task form
     if request.method =='POST':
         form_name = request.form['form-name']
-        if form_name == 'form-taskDelete':
+        if form_name == 'form-newCard':
+            if form.submitc and form.validate():
+                cardtaken = Card.query.filter_by(date=form.date.data).filter_by(board_id=thisboardid).first()
+                if cardtaken is None:
+                    card = Card(header=form.header.data, date=form.date.data, motherboard=thisboard)
+                    db.session.add(card)
+                    db.session.commit()
+        elif form_name == 'form-newTask':
+            if formTask.validate_on_submit():
+                task = Task(card_id=formTask.card_id.data, tasktext=formTask.tasktext.data)
+                db.session.add(task)
+                db.session.commit()
+                return redirect(url_for('board', boardid=boardid))
+        elif form_name == 'form-taskDelete':
             if formDeleteTask.validate_on_submit():
                 taskToDelete = Task.query.filter_by(id=formDeleteTask.id.data).first()
                 db.session.delete(taskToDelete)
@@ -178,21 +184,22 @@ def board(boardid):
                     db.session.commit()
                     return redirect(url_for('board', boardid=boardid))
                 print(taskDone)
-
-
-    # Delete card form
-    if formDeleteCard.validate_on_submit():
-        if Task.query.filter_by(card_id=formDeleteCard.id.data).all() is None:
-            cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
-            db.session.delete(cardToDelete)
-            db.session.commit()
-            return redirect(url_for('board', boardid=boardid))
-        for task in Task.query.filter_by(card_id=formDeleteCard.id.data).all():
-            db.session.delete(task)
-            db.session.commit()
-            db.session.delete(cardToDelete)
-            db.session.commit()
-        return redirect(url_for('board', boardid=boardid))
+        elif form_name == 'form-cardDelete':   
+            # Delete card form
+            if formDeleteCard.validate_on_submit():
+                if Task.query.filter_by(card_id=formDeleteCard.id.data).first() is None:
+                    cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
+                    db.session.delete(cardToDelete)
+                    db.session.commit()
+                    return redirect(url_for('board', boardid=boardid))
+                for task in Task.query.filter_by(card_id=formDeleteCard.id.data).all():
+                    #problem with deleting tasks
+                    db.session.delete(task)
+                    db.session.commit()
+                    cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
+                    db.session.delete(cardToDelete)
+                    db.session.commit()
+                return redirect(url_for('board', boardid=boardid))
 
 
     # for card in cards:
