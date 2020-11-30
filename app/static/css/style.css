@@ -511,8 +511,10 @@ li {
 
 .card .new_task_submit {
   font-size: 0.875rem;
+  font-weight: 800;
   width: 22px;
   border-radius: 30px;
+  background: #D2CED1;
   color: #4D4D4D;
 }
 
@@ -521,8 +523,8 @@ li {
 }
 
 .card .delete_task_submit {
-  font-size: 0.875rem;
-  padding: 0px 4px;
+  font-size: 0.75rem;
+  padding: 0px 3.5px;
   border: 0.5px solid #D2CED1;
   border-radius: 30px;
   color: #D2CED1;
@@ -530,6 +532,19 @@ li {
 }
 
 .card .delete_task_submit:focus {
+  outline: none;
+}
+
+.card .done_task_submit {
+  font-size: 0.75rem;
+  padding: 0px 3px;
+  border: 0.5px solid #4D4D4D;
+  border-radius: 30px;
+  color: #4D4D4D;
+  background: white;
+}
+
+.card .done_task_submit:focus {
   outline: none;
 }
 

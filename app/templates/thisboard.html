@@ -57,7 +57,7 @@
                             {{ formDoneTask.hidden_tag() }}
                             <input type="hidden" name="form-name" value="form-taskDone">
                             {{ formDoneTask.id(value=task.id, style="display:none")}}
-                            {{ formDoneTask.submit3(class="delete_task_submit", type="submit", value="✓") }}
+                            {{ formDoneTask.submit3(class="done_task_submit", type="submit", value="✓") }}
                         </form>
                         <!-- FORM Done TASK -->
                         <span class="task_text">{{ task.tasktext }}</span>

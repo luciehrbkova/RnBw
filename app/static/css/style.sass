@@ -334,19 +334,31 @@ li
             outline: none
     .new_task_submit
         font-size: 0.875rem
+        font-weight: 800
         width: 22px
         border-radius: 30px
+        background: $grey
         color: $black
         &:focus
             outline: none
     .delete_task_submit
-        font-size: 0.875rem
+        font-size: 0.75rem
         // height: 20px
-        padding: 0px 4px
+        padding: 0px 3.5px
         border: 0.5px solid $grey
         border-radius: 30px
         color: $grey
         background: $light
+        &:focus
+            outline: none
+    .done_task_submit
+        font-size: 0.75rem
+        // height: 20px
+        padding: 0px 3px
+        border: 0.5px solid $black
+        border-radius: 30px
+        color: $black
+        background: white
         &:focus
             outline: none
     .new_card_form
