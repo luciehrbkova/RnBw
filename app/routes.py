@@ -169,29 +169,33 @@ def board(boardid):
                 return redirect(url_for('board', boardid=boardid))
     # dashboard____________________________________________________________________________
     today = str(date.today())
+    allTasksForToday=0
+    doneTasksForToday=0
+    rainbowValue= None
+    rainbowMeter=350
     #CARD
-    cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
-    #TODAYS TASKS
-    allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
-    numberAllTasks = len(allTasksForToday)
-    #DONE TODAYS TASKS
-    doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
-    numberDoneTasks = len(doneTasksForToday)    
-    #RAINBOW VALUE
-    rainbowValue = numberDoneTasks/numberAllTasks
+    if Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first():
+        cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
+        #TODAYS TASKS
+        if Task.query.filter_by(card_id=cardForToday.id).first():
+            allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
+            numberAllTasks = len(allTasksForToday)
+            #DONE TODAYS TASKS
+            doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
+            numberDoneTasks = len(doneTasksForToday)    
+            #RAINBOW VALUE
+            rainbowValue = numberDoneTasks/numberAllTasks
 
-    if rainbowValue == 0:
-        rainbowMeter = 350
-    elif rainbowValue != 0:
-        rainbowMeter = 150
+            rainbowMeter = 350-350*rainbowValue
 
-    print("Todays card is:",cardForToday.header)
-    print ("Number of all tasks = ", numberAllTasks)
-    print ("Number of done tasks = ", numberDoneTasks)
-    print ("Rainbow value = ", rainbowValue)
 
-    if cardForToday:
-        dashboardAwardTitle = "Get award for today!"
+            print("Todays card is:",cardForToday.header)
+            print ("Number of all tasks = ", numberAllTasks)
+            print ("Number of done tasks = ", numberDoneTasks)
+            print ("Rainbow value = ", rainbowValue)
+
+            if cardForToday:
+                dashboardAwardTitle = "Get award for today!"
 
 
 
