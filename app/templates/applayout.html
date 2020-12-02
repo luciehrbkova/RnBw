@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>{{ title }}</title>
@@ -97,6 +98,12 @@ function openNav()
         document.getElementById("menu_img").src = "{{ url_for('static', filename='img/menu.png') }}";
         document.getElementById("btn_menu").setAttribute("onClick", "openNav()");
     }
+
+    // $('#done_task_submit').click(function(){
+    //     $(this).css('background','lightgreen');
+    // });
+
+    
 
 </script>
 </body>

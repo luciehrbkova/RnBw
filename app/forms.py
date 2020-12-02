@@ -30,12 +30,12 @@ class BoardForm(FlaskForm):
 class CardForm(FlaskForm):
     header = StringField('Card Header', validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()])
-    submit = SubmitField('Create')
+    submitc = SubmitField('Create')
 
 class TaskForm(FlaskForm):
     card_id = IntegerField('Cardid', validators=[DataRequired()])
     tasktext = StringField('Task', validators=[DataRequired()])
-    submit = SubmitField('+')
+    submitt = SubmitField('+')
 
 class DeleteTaskForm(FlaskForm):
     id = IntegerField('Taskid', validators=[DataRequired()])
@@ -45,11 +45,6 @@ class DoneTaskForm(FlaskForm):
     id = IntegerField('Taskid', validators=[DataRequired()])
     # done = BooleanField('Done', validators=[DataRequired()])
     submit3 = SubmitField('✔️')
-
-# class UnDoneTaskForm(FlaskForm):
-#     id = IntegerField('Taskid', validators=[DataRequired()])
-    # done = BooleanField('Done', validators=[DataRequired()])
-    # submit4 = SubmitField('x')
 
 class DeleteCardForm(FlaskForm):
     id = IntegerField('Cardid', validators=[DataRequired()])
