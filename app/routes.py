@@ -173,6 +173,7 @@ def board(boardid):
     doneTasksForToday=0
     rainbowValue= None
     rainbowMeter=350
+    import random
     #CARD
     if Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first():
         cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
@@ -185,14 +186,14 @@ def board(boardid):
             numberDoneTasks = len(doneTasksForToday)    
             #RAINBOW VALUE
             rainbowValue = numberDoneTasks/numberAllTasks
-
             rainbowMeter = 350-350*rainbowValue
-
 
             print("Todays card is:",cardForToday.header)
             print ("Number of all tasks = ", numberAllTasks)
             print ("Number of done tasks = ", numberDoneTasks)
             print ("Rainbow value = ", rainbowValue)
+            
+            print ("Random choice = ", random.choice(allTasksForToday))
 
             if cardForToday:
                 dashboardAwardTitle = "Get award for today!"
