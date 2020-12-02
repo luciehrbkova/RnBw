@@ -251,7 +251,7 @@ def board(boardid):
                         motivation="Great job, You! You are beating this game!"
                     # X-2/X
                     if numberDoneTasks + 2 == numberAllTasks:
-                        motivation="You are a beast whet it comes to completing tasks! the last two ahead!"
+                        motivation="You are a beast when it comes to completing tasks! the last two ahead!"
                     # X-1/X
                     if numberDoneTasks + 1 == numberAllTasks:
                         motivation="Great job you! One last task to do! Go ahead!!! "
