@@ -109,7 +109,7 @@ def board(boardid):
     #display all tasks______________________________
     tasks = Task.query.all()
     # forms__________________________________________
-    form = CardForm()
+    formCard = CardForm()
     formTask = TaskForm()
     formDeleteTask = DeleteTaskForm()
     formDoneTask = DoneTaskForm()
@@ -119,10 +119,10 @@ def board(boardid):
     if request.method =='POST':
         form_name = request.form['form-name']
         if form_name == 'form-newCard':
-            if form.submitc and form.validate():
-                cardtaken = Card.query.filter_by(date=form.date.data).filter_by(board_id=thisboardid).first()
+            if formCard.validate_on_submit():
+                cardtaken = Card.query.filter_by(date=formCard.date.data).filter_by(board_id=thisboardid).first()
                 if cardtaken is None:
-                    card = Card(header=form.header.data, date=form.date.data, motherboard=thisboard)
+                    card = Card(header=formCard.header.data, date=formCard.date.data, motherboard=thisboard)
                     db.session.add(card)
                     db.session.commit()
         elif form_name == 'form-newTask':
@@ -284,34 +284,9 @@ def board(boardid):
 
 
 
-    # for card in cards:
-    #     if card.board_id == thisboard:
-    #         cardId = card.id
-    #         for task in tasks:
-    #             # if task.card_id = cardId:
-    #             tasksOnCard = Task.query.filter_by(card_id=cardId).all()
-            
-    #         print('This is card id: !!!!!')
-    #         print(cardId)
-    #         print(tasksOnCard)
-
-
-  # for card in cards:
-    #     # if card.id > 55:
-    #     #     print (card.id)
-    #     print (card.header)
-    #     cardid= card.id
-    #     print("tohle je card ID")
-    #     print(cardid)
-    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
-    # print(allcardsonboard)
-    # count = Card.query.filter_by(board_id=thisboardid).count()
-    # print(count)
     
 
-    
-
-    return render_template('thisboard.html', user=user, title=thisboard.title, motivation=motivation, boards=boards, form=form, cards=cards, 
+    return render_template('thisboard.html', user=user, title=thisboard.title, motivation=motivation, boards=boards, formCard=formCard, cards=cards, 
     formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask, allTasksForToday=allTasksForToday,
     doneTasksForToday=doneTasksForToday, rainbowValue=rainbowValue, rainbowMeter=rainbowMeter, quoteForToday=quoteForToday)
 
