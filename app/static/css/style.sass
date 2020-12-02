@@ -274,11 +274,27 @@ li
 .no_overflow
     width: 100%
     overflow: hidden
-
 .flex-wrap
     display: flex
     flex-wrap: wrap
     align-content: flex-start
+
+.stage
+    width: 100%
+    display: flex
+    justify-content: space-around
+.image_ani
+    width: 400px
+    overflow: hidden
+    transition: ease-in-out
+    transition-property: transform
+    animation: awardAni 4s
+    @keyframes awardAni
+        0%
+            transform: rotateY(0deg)  
+        100%
+            transform: rotateY(360deg)  
+    
 
 // *************** cards *******************
 // list

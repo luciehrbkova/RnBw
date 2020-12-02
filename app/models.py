@@ -38,7 +38,6 @@ class Card(db.Model):
     completed = db.Column(db.Boolean, default=False, nullable=False)
     board_id = db.Column(db.Integer, db.ForeignKey('board.id'))
     tasks = db.relationship('Task', backref='mothercard', lazy='dynamic')
-
     def __repr__(self):
         return '<Card {}'.format(self.id)
 
@@ -47,7 +46,12 @@ class Task(db.Model):
     tasktext = db.Column(db.String(20))
     done = db.Column(db.Boolean, default=False, nullable=False)
     card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
-    
-
     def __repr__(self):
         return '<Task {}'.format(self.id)
+
+class Quote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(100))
+    text = db.Column(db.String(1000))
+    def __repr__(self):
+        return '<Quote {}'.format(self.id)
