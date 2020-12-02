@@ -3,7 +3,7 @@ from app import app
 from app import db
 from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm, DeleteTaskForm, DeleteCardForm, DoneTaskForm
 from flask_login import current_user, login_user
-from app.models import User, Board, Card, Task
+from app.models import User, Board, Card, Task, Quote
 from flask_login import logout_user, login_required
 from datetime import date
 
@@ -174,7 +174,7 @@ def board(boardid):
     rainbowValue= None
     rainbowMeter=350
     import random
-    #CARD
+    #CARD__________________________
     if Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first():
         cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
         #TODAYS TASKS
@@ -192,11 +192,12 @@ def board(boardid):
             print ("Number of all tasks = ", numberAllTasks)
             print ("Number of done tasks = ", numberDoneTasks)
             print ("Rainbow value = ", rainbowValue)
-            
             print ("Random choice = ", random.choice(allTasksForToday))
+    #quote__________________________
+    # note! quotes are numbered from 2 to 32
+    allQuotes = Quote.query.all()
+    quoteForToday = random.choice(allQuotes)
 
-            if cardForToday:
-                dashboardAwardTitle = "Get award for today!"
 
 
 
@@ -229,7 +230,7 @@ def board(boardid):
 
     return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, 
     formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask, allTasksForToday=allTasksForToday,
-    doneTasksForToday=doneTasksForToday, rainbowValue=rainbowValue, rainbowMeter=rainbowMeter)
+    doneTasksForToday=doneTasksForToday, rainbowValue=rainbowValue, rainbowMeter=rainbowMeter, quoteForToday=quoteForToday)
 
 
 @app.route("/test")

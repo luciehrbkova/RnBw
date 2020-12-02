@@ -113,16 +113,16 @@
     <div class="column tablet_none">
             <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
                 <p class="text_center">Get your Award today!! 
-                {% if doneTasksForToday != 0 %}
+                <!-- {% if doneTasksForToday != 0 %}
                     {% for task in doneTasksForToday %}
                         {{task.id}}
                     {% endfor %}
-                {% endif %}
+                {% endif %} -->
                 </p>
             </div>
     <div class="column mobile_none">
-        <p class="quote">“The secret of getting ahead is getting started.”</p>
-        <span class="author date">Mark twain</span>
+        <p class="quote">{{ quoteForToday.text }}</p>
+        <span class="author date">{{ quoteForToday.author }}</span>
     </div>
 </div>
 {% endblock %}
