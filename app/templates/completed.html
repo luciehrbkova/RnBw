@@ -1,0 +1,41 @@
+{% extends "applayout.html" %}
+
+
+
+{% block rainbow %}
+<div class="rainbow_box flex_center">
+    <div class="rainbox_dimensions" style="--rainbow_height-var:{{ rainbowMeter }}px">
+        <img src="{{ url_for('static', filename='img/rainbow.png') }}" alt="">
+    </div>
+</div>
+{% endblock %}
+ <!--block main ----------------------------------- -->
+ {% block main %}
+ <!-- ***************** MAIN SECTION **************************** -->
+ <section class="main no_overflow flex-wrap flex_start">
+    <div class="stage">
+        <div class="image_ani"><img src="{{ url_for('static', filename='img/award_ani.png') }}" alt=""></div>
+   
+
+
+    </div>
+ </section> 
+{% endblock %}  
+
+<!--block dashboard ----------------------------------- -->
+{% block dashboard %} 
+<!-- ***************** DASHBOARD **************************** -->
+<div class="dashboard flex_row_spacebetween">
+    <div class="column">
+        <span class="name">{{ current_user.name }},</span>
+        <p class="message">Congratulation! You are the best!</p>
+    </div>
+    <div class="column tablet_none">
+            <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
+                <p class="text_center">Your Award!! 
+                </p>
+            </div>
+    <div class="column mobile_none">
+    </div>
+</div>
+{% endblock %}
