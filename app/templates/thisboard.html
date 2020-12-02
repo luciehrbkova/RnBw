@@ -44,7 +44,7 @@
     <div class="card">
         <div class="flex_row_spacebetween">
             <span class="date">{{ card.header }}</span>
-            <span class="date">{{ card.date }}/{{ card.board_id }}/{{ card.id }}</span>
+            <span class="date">{{ card.date }}</span>
         </div>
         <ul class=card_list>
             {% for task in tasks %}
@@ -62,7 +62,7 @@
                                 {{ formDoneTask.submit3(class="done_task_submit", type="submit", value="✓", style="background:lightgreen") }}    
                             {% endif %}
                         </form>
-                        <span class="task_text">{{ task.tasktext }}{{ task.id }}</span>
+                        <span class="task_text">{{ task.tasktext }}</span>
                         <!-- <span class="task_text">{{ task.done }}</span> -->
                         <!-- FORM DELETE TASK -->
                         <form action="" class="new_task_form" method="POST" style="width:21px">
@@ -108,7 +108,7 @@
 <div class="dashboard flex_row_spacebetween">
     <div class="column">
         <span class="name">{{ current_user.name }},</span>
-        <p class="message">{{ greeting }}</p>
+        <p class="message">{{ motivation }}</p>
     </div>
     <div class="column tablet_none">
             <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>

@@ -173,10 +173,11 @@ def board(boardid):
     doneTasksForToday=0
     rainbowValue= None
     rainbowMeter=350
+    motivation="Let's do it!"
     import random
     #CARD__________________________
-    if Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first():
-        cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
+    cardForToday = Card.query.filter_by(date=today).filter_by(board_id=thisboardid).first()
+    if cardForToday:
         #TODAYS TASKS
         if Task.query.filter_by(card_id=cardForToday.id).first():
             allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
@@ -184,10 +185,80 @@ def board(boardid):
             #DONE TODAYS TASKS
             doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
             numberDoneTasks = len(doneTasksForToday)    
-            #RAINBOW VALUE
+            #RAINBOW VALUE******
             rainbowValue = numberDoneTasks/numberAllTasks
             rainbowMeter = 350-350*rainbowValue
+            #MOTIVATION DEPENDENT ON THE TASK SCORE **************
+            if numberAllTasks >0 and numberDoneTasks == 0:
+                motivation= "You have " + str(numberAllTasks) + " tasks to complete! Start to achieve your dreams!"
+            #1/1
+            if numberAllTasks == 1 and numberDoneTasks == 1:
+                 motivation="Congratulation! You are simply the best! Everything is done! Enjoy the moment and your free time!"
+            # 2+
+            if numberAllTasks > 1:
+                # 1/X
+                if numberDoneTasks == 1:
+                    motivation="Congratulation! You have completed your first task! Go ahead!"
+                # 2/X
+                if numberDoneTasks == 2:
+                    motivation="Perfect! The second task done! You are on the right track! Don't stop!!!"
+                # 2/2
+                if numberAllTasks == 2 and numberDoneTasks == 2:
+                    motivation="Congratulation! You are simply the best! Everything is done! Enjoy the moment and your free time!"
+                # 2+3/3
+                if numberAllTasks == 3:
+                    # 2/3
+                    if numberDoneTasks == 2:
+                        motivation="Hey! You are doing sooo well! only last task to do! Well done! Go Go Go!"
+                    # 3/3
+                    if numberDoneTasks == 3:
+                        motivation="Congratulation! You are simply the best! Everything is done! Enjoy the moment and your free time!"
+                # odd values and < 50%
+                if 0.3 < rainbowValue < 0.41 and numberAllTasks % 2 !=0:
+                    motivation="Great job, You! You are beating this game!"
+                if 0.4 < rainbowValue < 0.5 and numberAllTasks % 2 !=0:
+                    motivation="You are doing soooo well! Complete one more task are you are in the midway!"
+                # even values and < 50%
+                if 0.2 < rainbowValue < 0.31 and numberAllTasks % 2 == 0:
+                    motivation="Great job, You! You are beating this game!"
+                if 0.3 < rainbowValue < 0.41 and numberAllTasks % 2 == 0:
+                    motivation="Horay! Another task done! Don't slow down!"
+                 # even values and < 50%
+                if 0.4 < rainbowValue < 0.5 and numberAllTasks % 2 == 0:
+                    motivation="Great job, You! You are beating this game!"
+                # 50%
+                if rainbowValue == 0.5:
+                    motivation="Just halfway to have things done!! You are amazing!"
+                # odd values and > 50%
+                if rainbowValue > 0.5 and numberAllTasks % 2 !=0:
+                    motivation="You have passed halfway line! You are a star!!"
+                #odd values and > 60%
+                if rainbowValue > 0.6 and numberAllTasks % 2 !=0:
+                    motivation="Horay! Another task done! Don't slow down!"
+                #odd values and > 70%
+                if rainbowValue > 0.7 and numberAllTasks % 2 !=0:
+                    motivation="Great job, You! You are beating this game!"
+                # even values and > 50%
+                if rainbowValue > 0.5 and numberAllTasks % 2 == 0:
+                    motivation="You have passed halfway line! You are a star!!"
+                # even values and > 60%
+                if rainbowValue > 0.6 and numberAllTasks % 2 == 0:
+                    motivation="Horay! Another task done! Don't slow down!"
+                # even values and > 70%
+                if rainbowValue > 0.7 and numberAllTasks % 2 == 0:
+                    motivation="Great job, You! You are beating this game!"
+                # X-2/X
+                if numberDoneTasks + 2 == numberAllTasks:
+                    motivation="You are a beast whet it comes to completing tasks! the last two ahead!"
+                # X-1/X
+                if numberDoneTasks + 1 == numberAllTasks:
+                    motivation="Great job you! One last task to do! Go ahead!!! "
+                # 100%
+                if numberAllTasks == numberDoneTasks:
+                    motivation="Congratulation! You are simply the best! Everything is done! Enjoy the moment and your free time!"
+            
 
+            
             print("Todays card is:",cardForToday.header)
             print ("Number of all tasks = ", numberAllTasks)
             print ("Number of done tasks = ", numberDoneTasks)
@@ -228,7 +299,7 @@ def board(boardid):
 
     
 
-    return render_template('thisboard.html', user=user, title=thisboard.title, greeting="Let's do it!", boards=boards, form=form, cards=cards, 
+    return render_template('thisboard.html', user=user, title=thisboard.title, motivation=motivation, boards=boards, form=form, cards=cards, 
     formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask, allTasksForToday=allTasksForToday,
     doneTasksForToday=doneTasksForToday, rainbowValue=rainbowValue, rainbowMeter=rainbowMeter, quoteForToday=quoteForToday)
 
