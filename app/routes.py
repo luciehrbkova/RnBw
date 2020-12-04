@@ -5,7 +5,7 @@ from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm
 from flask_login import current_user, login_user
 from app.models import User, Board, Card, Task, Quote
 from flask_login import logout_user, login_required
-from datetime import date
+from datetime import date, timedelta
 
 
 
@@ -69,18 +69,6 @@ def myboards():
     boards = user.boards.all()
     # thisboard = board.id
     return render_template('myboards.html', title='My Boards', boards=boards, user=user, greeting="What do you want to work on, today!")
-
-@app.route("/awards")
-@login_required
-def awards():
-    user = current_user
-    return render_template('awards.html', title='My Awards Gallery')
-
-@app.route("/reports")
-@login_required
-def reports():
-    user = current_user
-    return render_template('reports.html', title='My Analytics')
 
 @app.route("/newboard", methods=['GET', 'POST'])
 @login_required
@@ -296,6 +284,89 @@ def completed():
 
     return render_template('completed.html', title='Your Award')
 
+@app.route("/awards")
+@login_required
+def awards():
+    user = current_user
+    return render_template('awards.html', title='My Awards Gallery')
+
+@app.route("/reports")
+@login_required
+def reports():
+    today = date.today()
+    allCardsforToday = Card.query.filter_by(date=today).all()
+    print("all cardstoday")
+    print(allCardsforToday)
+    for card in allCardsforToday:
+        print('card:::::')
+        print(card.id)
+        print('all tasks')
+        allTasksForToday = Task.query.filter_by(card_id=card.id).all()
+        numberOfAllTasks = len(allTasksForToday)
+        print(numberOfAllTasks)
+        print(allTasksForToday)
+        print('all tasks done')
+        doneTasksForToday = Task.query.filter_by(card_id=card.id).filter_by(done=True).all()
+        numberOfAllTasksDone = len(doneTasksForToday)
+        print(numberOfAllTasksDone)
+        print(doneTasksForToday)
+
+
+
+    # allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
+    # doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
+
+
+
+
+
+
+    today = today - timedelta(days= 0)
+    dayminusone = today - timedelta(days= 1)
+    dayminustwo = today - timedelta(days= 2)
+    dayminusthree = today - timedelta(days= 3)
+    dayminusfour = today - timedelta(days= 4)
+    dayminusfive = today - timedelta(days= 5)
+    dayminussix = today - timedelta(days= 6)
+
+
+
+
+    # hey = range(-7,0)
+
+    # for i in hey:
+    #     whatday = today + timedelta(days= i)
+    #     print("test")
+    #     print(whatday)
+    # whatday = today + timedelta(days=i)
+
+    # weekday = today.weekday()
+    
+    # # lower bound
+    # mon = today - timedelta(days=weekday)
+    # # upper bound
+    # sun = today + timedelta(days=(6 - weekday))
+    # delta = sun - mon
+    # week = range(0,7)
+
+
+    # for i in week:
+    #     day = mon +timedelta(days=i)
+    #     print(day)
+
+    day = 1
+
+    print("today is")
+    print(today)
+    # print(weekday)
+    # print(mon)
+
+    
+    
+    
+
+    user = current_user
+    return render_template('reports.html', title='My Analytics', day=day, today=today, date=date)
 
 @app.route("/test")
 def test():
@@ -305,5 +376,5 @@ def test():
     # sss = Board.query.filter_by(title="New Board")
 
 
-    return render_template('testboard.html', boards=displayBoard, user=user, title='test', greeting="Let's do it!",)
+    return render_template('testboard.html', boards=displayBoard, user=user, title='test', greeting="Let's do it!")
 
