@@ -5,7 +5,8 @@ from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm
 from flask_login import current_user, login_user
 from app.models import User, Board, Card, Task, Quote
 from flask_login import logout_user, login_required
-from datetime import date
+from datetime import date, timedelta
+
 
 
 
@@ -70,18 +71,6 @@ def myboards():
     # thisboard = board.id
     return render_template('myboards.html', title='My Boards', boards=boards, user=user, greeting="What do you want to work on, today!")
 
-@app.route("/awards")
-@login_required
-def awards():
-    user = current_user
-    return render_template('awards.html', title='My Awards Gallery')
-
-@app.route("/reports")
-@login_required
-def reports():
-    user = current_user
-    return render_template('reports.html', title='My Analytics')
-
 @app.route("/newboard", methods=['GET', 'POST'])
 @login_required
 def newboard():
@@ -109,7 +98,7 @@ def board(boardid):
     #display all tasks______________________________
     tasks = Task.query.all()
     # forms__________________________________________
-    form = CardForm()
+    formCard = CardForm()
     formTask = TaskForm()
     formDeleteTask = DeleteTaskForm()
     formDoneTask = DoneTaskForm()
@@ -119,10 +108,10 @@ def board(boardid):
     if request.method =='POST':
         form_name = request.form['form-name']
         if form_name == 'form-newCard':
-            if form.submitc and form.validate():
-                cardtaken = Card.query.filter_by(date=form.date.data).filter_by(board_id=thisboardid).first()
+            if formCard.validate_on_submit():
+                cardtaken = Card.query.filter_by(date=formCard.date.data).filter_by(board_id=thisboardid).first()
                 if cardtaken is None:
-                    card = Card(header=form.header.data, date=form.date.data, motherboard=thisboard)
+                    card = Card(header=formCard.header.data, date=formCard.date.data, motherboard=thisboard)
                     db.session.add(card)
                     db.session.commit()
         elif form_name == 'form-newTask':
@@ -251,7 +240,7 @@ def board(boardid):
                         motivation="Great job, You! You are beating this game!"
                     # X-2/X
                     if numberDoneTasks + 2 == numberAllTasks:
-                        motivation="You are a beast whet it comes to completing tasks! the last two ahead!"
+                        motivation="You are a beast when it comes to completing tasks! the last two ahead!"
                     # X-1/X
                     if numberDoneTasks + 1 == numberAllTasks:
                         motivation="Great job you! One last task to do! Go ahead!!! "
@@ -284,34 +273,9 @@ def board(boardid):
 
 
 
-    # for card in cards:
-    #     if card.board_id == thisboard:
-    #         cardId = card.id
-    #         for task in tasks:
-    #             # if task.card_id = cardId:
-    #             tasksOnCard = Task.query.filter_by(card_id=cardId).all()
-            
-    #         print('This is card id: !!!!!')
-    #         print(cardId)
-    #         print(tasksOnCard)
-
-
-  # for card in cards:
-    #     # if card.id > 55:
-    #     #     print (card.id)
-    #     print (card.header)
-    #     cardid= card.id
-    #     print("tohle je card ID")
-    #     print(cardid)
-    # allcardsonboard = Card.query.filter_by(board_id=thisboardid).all()
-    # print(allcardsonboard)
-    # count = Card.query.filter_by(board_id=thisboardid).count()
-    # print(count)
     
 
-    
-
-    return render_template('thisboard.html', user=user, title=thisboard.title, motivation=motivation, boards=boards, form=form, cards=cards, 
+    return render_template('thisboard.html', user=user, title=thisboard.title, motivation=motivation, boards=boards, formCard=formCard, cards=cards, 
     formTask=formTask, tasks=tasks, formDeleteTask=formDeleteTask, formDeleteCard=formDeleteCard, formDoneTask=formDoneTask, allTasksForToday=allTasksForToday,
     doneTasksForToday=doneTasksForToday, rainbowValue=rainbowValue, rainbowMeter=rainbowMeter, quoteForToday=quoteForToday)
 
@@ -321,6 +285,97 @@ def completed():
 
     return render_template('completed.html', title='Your Award')
 
+@app.route("/awards")
+@login_required
+def awards():
+    user = current_user
+    return render_template('awards.html', title='My Awards Gallery')
+
+@app.route("/reports")
+@login_required
+def reports():
+    today = date.today()
+    allCardsforToday = Card.query.filter_by(date=today).all()
+    print("all cardstoday")
+    print(allCardsforToday)
+    for card in allCardsforToday:
+        print('card:::::')
+        print(card.id)
+        print('all tasks')
+        allTasksForToday = Task.query.filter_by(card_id=card.id).all()
+        numberOfAllTasks = len(allTasksForToday)
+        print(numberOfAllTasks)
+        print(allTasksForToday)
+        print('all tasks done')
+        doneTasksForToday = Task.query.filter_by(card_id=card.id).filter_by(done=True).all()
+        numberOfAllTasksDone = len(doneTasksForToday)
+        print(numberOfAllTasksDone)
+        print(doneTasksForToday)
+        # for tasks in allTasksForToday:
+            
+
+
+
+    # allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
+    # doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
+
+
+
+
+
+
+    # today = today - timedelta(days= 0)
+    # dayminusone = today - timedelta(days= 1)
+    # dayminustwo = today - timedelta(days= 2)
+    # dayminusthree = today - timedelta(days= 3)
+    # dayminusfour = today - timedelta(days= 4)
+    # dayminusfive = today - timedelta(days= 5)
+    # dayminussix = today - timedelta(days= 6)
+
+    # weeek = [dayminussix, dayminusfive, dayminusfour, dayminusthree, dayminustwo, dayminusone, today]
+
+    # for i in range(0,7):
+    #     ted = today - timedelta(days= i)
+    #     print(ted)
+
+   
+
+    
+    today = today - timedelta(days= 0)
+    weekday = today.weekday()
+    mon = today + timedelta(days=(0 - weekday))
+    tue = today + timedelta(days=(1 - weekday))
+    wed = today + timedelta(days=(2 - weekday))
+    thu = today + timedelta(days=(3 - weekday))
+    fri = today + timedelta(days=(4 - weekday))
+    sat = today + timedelta(days=(5 - weekday))
+    sun = today + timedelta(days=(6 - weekday))
+    delta = sun - mon
+    week = [mon, tue, wed, thu, fri, sat, sun]
+    dayname = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+
+    for i in range(0,7):
+        day = mon +timedelta(days=i)
+        whichday = dayname[i]
+        print(day)
+        print(whichday)
+
+
+        
+
+
+
+    print("today is")
+    print(today)
+    # print(weekday)
+    # print(mon)
+
+    
+    
+    
+
+    user = current_user
+    return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname)
 
 @app.route("/test")
 def test():
@@ -330,5 +385,5 @@ def test():
     # sss = Board.query.filter_by(title="New Board")
 
 
-    return render_template('testboard.html', boards=displayBoard, user=user, title='test', greeting="Let's do it!",)
+    return render_template('testboard.html', boards=displayBoard, user=user, title='test', greeting="Let's do it!")
 

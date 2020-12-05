@@ -28,13 +28,12 @@
         </div>
         <!-- FORM ADD CARD -->
         <form action="" class="new_card_form" method="POST">
-            {{ form.hidden_tag() }}
+            {{ formCard.hidden_tag() }}
             <input type="hidden" name="form-name" value="form-newCard">
-            {{ form.header(placeholder="New Board Title",type="text" ,class="new_card_input") }}
+            {{ formCard.header(placeholder="New Board Title",type="text" ,class="new_card_input") }}
             <!-- <input type="text" class="new_card_input"> -->
-            <!-- {{ form.date }} -->
-            {{ form.date(type="date" ,class="new_card_input") }}
-            {{ form.submitc(class='new_card_submit', type="submit") }}
+            {{ formCard.date(type="date" ,class="new_card_input") }}
+            {{ formCard.submitc(class='new_card_submit', type="submit") }}
             <!-- <input type="submit" value="Create" class="new_card_submit" > -->
         </form>
 

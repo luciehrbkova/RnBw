@@ -707,12 +707,26 @@ li {
 }
 
 .week {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 0 auto;
+  margin-top: 100px;
+  height: 212px;
+}
+
+.day_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .day_card {
   width: 124px;
-  height: 152px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -741,9 +755,9 @@ li {
 }
 
 .day_graf_column {
-  background: #F7EDFF;
+  background: #89B700;
   width: 60px;
-  height: 80px;
+  height: 180px;
 }
 
 @media screen and (max-width: 600px) {
