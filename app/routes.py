@@ -3,7 +3,7 @@ from app import app
 from app import db
 from app.forms import LoginForm, RegistrationForm, BoardForm, CardForm, TaskForm, DeleteTaskForm, DeleteCardForm, DoneTaskForm
 from flask_login import current_user, login_user
-from app.models import User, Board, Card, Task, Quote
+from app.models import User, Board, Card, Task, Quote, Award
 from flask_login import logout_user, login_required
 from datetime import date, timedelta
 
@@ -253,6 +253,8 @@ def board(boardid):
                         print('Great job')
                         print(cardForToday.completed)
                         cardForToday.completed = True
+                        award = Award( title="Day Award", image="award.png", card_id=cardForToday.id)
+                        db.session.add(award)
                         db.session.commit()
                         print('Great job -  changed')
                         print(cardForToday.completed)
@@ -265,10 +267,14 @@ def board(boardid):
 
         if cardForToday.completed == True:
             rainbowMeter = 0
+            
     #quote__________________________
     # note! quotes are numbered from 2 to 32
     allQuotes = Quote.query.all()
     quoteForToday = random.choice(allQuotes)
+    allAwards = Award.query.all()
+    print('AWAAAAAAAAAAAAAAAAAAAAAARRRRRDDDDDSSSSSSSS')
+    print(allAwards)
 
 
 
@@ -289,19 +295,23 @@ def completed():
 @login_required
 def awards():
     user = current_user
-    return render_template('awards.html', title='My Awards Gallery')
+    allAwards = Award.query.all()
+    for award in allAwards:
+        awardtitle = award.title
+        awardedCard = Card.query.filter_by(id=award.card_id).first()
+    return render_template('awards.html', title='My Awards Gallery', awardtitle=awardtitle, allAwards=allAwards , award=award, awardedCard=awardedCard)
 
 @app.route("/reports")
 @login_required
 def reports():
     today = date.today()
     allCardsforToday = Card.query.filter_by(date=today).all()
-    print("all cardstoday")
+
+    print("all cardstoday______________")
     print(allCardsforToday)
     for card in allCardsforToday:
         print('card:::::')
         print(card.id)
-        print('all tasks')
         allTasksForToday = Task.query.filter_by(card_id=card.id).all()
         numberOfAllTasks = len(allTasksForToday)
         print(numberOfAllTasks)
@@ -312,33 +322,11 @@ def reports():
         print(numberOfAllTasksDone)
         print(doneTasksForToday)
         # for tasks in allTasksForToday:
+        
             
-
-
-
     # allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
     # doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
 
-
-
-
-
-
-    # today = today - timedelta(days= 0)
-    # dayminusone = today - timedelta(days= 1)
-    # dayminustwo = today - timedelta(days= 2)
-    # dayminusthree = today - timedelta(days= 3)
-    # dayminusfour = today - timedelta(days= 4)
-    # dayminusfive = today - timedelta(days= 5)
-    # dayminussix = today - timedelta(days= 6)
-
-    # weeek = [dayminussix, dayminusfive, dayminusfour, dayminusthree, dayminustwo, dayminusone, today]
-
-    # for i in range(0,7):
-    #     ted = today - timedelta(days= i)
-    #     print(ted)
-
-   
 
     
     today = today - timedelta(days= 0)
@@ -357,22 +345,6 @@ def reports():
     for i in range(0,7):
         day = mon +timedelta(days=i)
         whichday = dayname[i]
-        print(day)
-        print(whichday)
-
-
-        
-
-
-
-    print("today is")
-    print(today)
-    # print(weekday)
-    # print(mon)
-
-    
-    
-    
 
     user = current_user
     return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname)

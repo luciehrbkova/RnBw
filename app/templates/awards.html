@@ -4,136 +4,18 @@
  {% block main %}
  <!-- ***************** MAIN SECTION **************************** -->
  <section class="main no_overflow flex-wrap">
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
+    {% for award in allAwards %}
+        <div class="award_card">
+            <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
+            <div class="text_center">
+                <span class="date">{{ awardtitle }}</span><br>
+                <span class="date">completed by:</span><br>
+                <span class="date">{{ awardedCard.date }}</span><br>
+            </div>
         </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <!-- second row -->
-    
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
-    <div class="award_card">
-        <div class="award"><img src="{{ url_for('static', filename='img/grey_award.png') }}" alt=""></div>
-        <div class="text_center">
-            <span class="date">3x</span><br>
-            <span class="date">RAINBOW STAR</span><br>
-            <span class="date">1 DAY completed</span>
-        </div>
-    </div>
+    {% endfor %}
+
+
     
     
    
