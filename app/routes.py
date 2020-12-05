@@ -9,6 +9,7 @@ from datetime import date, timedelta
 
 
 
+
 @app.route("/")
 def index():
     return redirect('/login')
@@ -310,6 +311,8 @@ def reports():
         numberOfAllTasksDone = len(doneTasksForToday)
         print(numberOfAllTasksDone)
         print(doneTasksForToday)
+        # for tasks in allTasksForToday:
+            
 
 
 
@@ -321,40 +324,46 @@ def reports():
 
 
 
-    today = today - timedelta(days= 0)
-    dayminusone = today - timedelta(days= 1)
-    dayminustwo = today - timedelta(days= 2)
-    dayminusthree = today - timedelta(days= 3)
-    dayminusfour = today - timedelta(days= 4)
-    dayminusfive = today - timedelta(days= 5)
-    dayminussix = today - timedelta(days= 6)
+    # today = today - timedelta(days= 0)
+    # dayminusone = today - timedelta(days= 1)
+    # dayminustwo = today - timedelta(days= 2)
+    # dayminusthree = today - timedelta(days= 3)
+    # dayminusfour = today - timedelta(days= 4)
+    # dayminusfive = today - timedelta(days= 5)
+    # dayminussix = today - timedelta(days= 6)
 
+    # weeek = [dayminussix, dayminusfive, dayminusfour, dayminusthree, dayminustwo, dayminusone, today]
 
+    # for i in range(0,7):
+    #     ted = today - timedelta(days= i)
+    #     print(ted)
 
+   
 
-    # hey = range(-7,0)
-
-    # for i in hey:
-    #     whatday = today + timedelta(days= i)
-    #     print("test")
-    #     print(whatday)
-    # whatday = today + timedelta(days=i)
-
-    # weekday = today.weekday()
     
-    # # lower bound
-    # mon = today - timedelta(days=weekday)
-    # # upper bound
-    # sun = today + timedelta(days=(6 - weekday))
-    # delta = sun - mon
-    # week = range(0,7)
+    today = today - timedelta(days= 0)
+    weekday = today.weekday()
+    mon = today + timedelta(days=(0 - weekday))
+    tue = today + timedelta(days=(1 - weekday))
+    wed = today + timedelta(days=(2 - weekday))
+    thu = today + timedelta(days=(3 - weekday))
+    fri = today + timedelta(days=(4 - weekday))
+    sat = today + timedelta(days=(5 - weekday))
+    sun = today + timedelta(days=(6 - weekday))
+    delta = sun - mon
+    week = [mon, tue, wed, thu, fri, sat, sun]
+    dayname = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+
+    for i in range(0,7):
+        day = mon +timedelta(days=i)
+        whichday = dayname[i]
+        print(day)
+        print(whichday)
 
 
-    # for i in week:
-    #     day = mon +timedelta(days=i)
-    #     print(day)
+        
 
-    day = 1
+
 
     print("today is")
     print(today)
@@ -366,7 +375,7 @@ def reports():
     
 
     user = current_user
-    return render_template('reports.html', title='My Analytics', day=day, today=today, date=date)
+    return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname)
 
 @app.route("/test")
 def test():

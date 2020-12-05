@@ -55,3 +55,4 @@ class Quote(db.Model):
     text = db.Column(db.String(1000))
     def __repr__(self):
         return '<Quote {}'.format(self.id)
+
