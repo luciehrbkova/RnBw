@@ -305,30 +305,7 @@ def awards():
 @login_required
 def reports():
     today = date.today()
-    allCardsforToday = Card.query.filter_by(date=today).all()
-
-    print("all cardstoday______________")
-    print(allCardsforToday)
-    for card in allCardsforToday:
-        print('card:::::')
-        print(card.id)
-        allTasksForToday = Task.query.filter_by(card_id=card.id).all()
-        numberOfAllTasks = len(allTasksForToday)
-        print(numberOfAllTasks)
-        print(allTasksForToday)
-        print('all tasks done')
-        doneTasksForToday = Task.query.filter_by(card_id=card.id).filter_by(done=True).all()
-        numberOfAllTasksDone = len(doneTasksForToday)
-        print(numberOfAllTasksDone)
-        print(doneTasksForToday)
-        # for tasks in allTasksForToday:
-        
-            
-    # allTasksForToday = Task.query.filter_by(card_id=cardForToday.id).all()
-    # doneTasksForToday = Task.query.filter_by(card_id=cardForToday.id).filter_by(done=True).all()
-
-
-    
+    #week
     today = today - timedelta(days= 0)
     weekday = today.weekday()
     mon = today + timedelta(days=(0 - weekday))
@@ -345,9 +322,22 @@ def reports():
     for i in range(0,7):
         day = mon +timedelta(days=i)
         whichday = dayname[i]
+        # numbers
+        analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).filter(Task.done == True).all()
+        analyticsNotDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).filter(Task.done == False).all()
+        numberDone = len(analyticsDone)
+        numberNotDone = len(analyticsNotDone)
+        if numberNotDone+numberDone > 0:
+            ratio = numberDone/(numberDone+numberNotDone)
+        if numberNotDone+numberDone == 0:
+            ratio = 0
+        graph= 180*ratio
+        print(numberDone, graph)
+        print('nooooooooooot_________________done')
+        print(numberNotDone, ratio)
 
     user = current_user
-    return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname)
+    return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname, graph=graph, ratio=ratio)
 
 @app.route("/test")
 def test():

@@ -10,9 +10,9 @@
     <div class="day_box">
     {% for day in week %}
         <div class="day_card">
-            <div class="day_graf_column"></div>
+            <div class="day_graf_column" style="--graph_height-var:{{ graph }}px"></div>
             <div class="text_center">
-                <span class="date">60%</span><br>
+                <span class="date">{{ ratio }}</span><br>
                 <span class="date mobile_none">{{ day }}</span>
             </div>
         </div>
