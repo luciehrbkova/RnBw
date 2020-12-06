@@ -737,6 +737,9 @@ li {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 @media screen and (max-width: 900px) {
@@ -755,9 +758,10 @@ li {
 }
 
 .day_graf_column {
-  background: #89B700;
+  background: #B862E0;
+  opacity: 0.5;
   width: 60px;
-  height: 180px;
+  height: var(--graph_height-var);
 }
 
 @media screen and (max-width: 600px) {

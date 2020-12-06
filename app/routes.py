@@ -299,6 +299,7 @@ def awards():
     for award in allAwards:
         awardtitle = award.title
         awardedCard = Card.query.filter_by(id=award.card_id).first()
+        print(awardedCard.date)
     return render_template('awards.html', title='My Awards Gallery', awardtitle=awardtitle, allAwards=allAwards , award=award, awardedCard=awardedCard)
 
 @app.route("/reports")
@@ -318,26 +319,112 @@ def reports():
     delta = sun - mon
     week = [mon, tue, wed, thu, fri, sat, sun]
     dayname = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+   
+    # ratioweek = [monrat, tuerat, wedrat, thurat, frirat, satrat,]
+    ratiorange = range(0,7)
+
 
     for i in range(0,7):
         day = mon +timedelta(days=i)
         whichday = dayname[i]
         # numbers
         analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).filter(Task.done == True).all()
-        analyticsNotDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).filter(Task.done == False).all()
+        analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).all()
         numberDone = len(analyticsDone)
-        numberNotDone = len(analyticsNotDone)
-        if numberNotDone+numberDone > 0:
-            ratio = numberDone/(numberDone+numberNotDone)
-        if numberNotDone+numberDone == 0:
+        numberAll = len(analyticsAll)
+        if numberAll > 0:
+            ratio = numberDone/numberAll
+        if numberAll == 0:
             ratio = 0
         graph= 180*ratio
+        print('DOOONE_________________/ GRAPH')
         print(numberDone, graph)
-        print('nooooooooooot_________________done')
-        print(numberNotDone, ratio)
+        print('ALLL_________________/RATIO')
+        print(numberAll, ratio)
+
+    # monday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==mon).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==mon).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_mon = numberDone/numberAll
+    if numberAll == 0:
+        ratio_mon = 0
+    ratio_mon = int(round(ratio_mon, 2)*100)
+
+    # tuesday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==tue).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==tue).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_tue = numberDone/numberAll
+    if numberAll == 0:
+        ratio_tue = 0
+    ratio_tue = int(round(ratio_tue, 2)*100)
+
+    # wednesday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==wed).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==wed).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_wed = numberDone/numberAll
+    if numberAll == 0:
+        ratio_wed = 0
+    ratio_wed = int(round(ratio_wed, 2)*100)
+
+    # thursday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==thu).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==thu).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_thu = numberDone/numberAll
+    if numberAll == 0:
+        ratio_thu = 0
+    ratio_thu = int(round(ratio_thu, 2)*100)
+
+    # friday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==fri).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==fri).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_fri = numberDone/numberAll
+    if numberAll == 0:
+        ratio_fri = 0
+    ratio_fri = int(round(ratio_fri, 2)*100)
+
+    # saturday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sat).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sat).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_sat = numberDone/numberAll
+    if numberAll == 0:
+        ratio_sat = 0
+    ratio_sat = int(round(ratio_sat, 2)*100)
+
+    # sunday
+    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sun).filter(Task.done == True).all()
+    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sun).all()
+    numberDone = len(analyticsDone)
+    numberAll = len(analyticsAll)
+    if numberAll > 0:
+        ratio_sun = numberDone/numberAll
+    if numberAll == 0:
+        ratio_sun = 0
+    ratio_sun = int(round(ratio_sun, 2)*100)
+    
+
+    weekratio = [ratio_mon, ratio_tue, ratio_wed, ratio_thu, ratio_fri, ratio_sat, ratio_sun ]
+
 
     user = current_user
-    return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname, graph=graph, ratio=ratio)
+    return render_template('reports.html', title='My Analytics', day=day, week=week, whichday=whichday, dayname=dayname, graph=graph, ratio=ratio, weekratio=weekratio)
 
 @app.route("/test")
 def test():
