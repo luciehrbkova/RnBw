@@ -295,7 +295,7 @@ def completed():
 @login_required
 def awards():
     user = current_user
-    allAwards = Award.query.all()
+    allAwards = user.awards.query.all()
     for award in allAwards:
         awardtitle = award.title
         awardedCard = Card.query.filter_by(id=award.card_id).first()
@@ -305,6 +305,7 @@ def awards():
 @app.route("/reports")
 @login_required
 def reports():
+    user = current_user
     today = date.today()
     #week
     today = today - timedelta(days= 0)
