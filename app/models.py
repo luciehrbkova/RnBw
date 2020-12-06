@@ -56,3 +56,10 @@ class Quote(db.Model):
     def __repr__(self):
         return '<Quote {}'.format(self.id)
 
+class Award(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20))
+    image = db.Column(db.String(50))
+    card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
+    def __repr__(self):
+        return '<Award {}'.format(self.id)

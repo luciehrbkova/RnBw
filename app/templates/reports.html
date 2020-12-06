@@ -8,16 +8,24 @@
     <div class="week flex_center">
    
     <div class="day_box">
-    {% for day in week %}
-        <div class="day_card">
-            <div class="day_graf_column"></div>
-            <div class="text_center">
-                <span class="date">60%</span><br>
-                <span class="date mobile_none">{{ day }}</span>
+    {% for ratio in weekratio %}
+            <div class="day_card">
+                <div class="day_graf_column" style="--graph_height-var:{{ 1.80*ratio }}px"></div>
+                <div class="text_center">
+                    <span class="date">{{ ratio }}%</span><br>
+                </div>
             </div>
-        </div>
     {% endfor %} 
     </div>
+    <div class="day_box">
+        {% for day in week %}
+            <div class="day_card">
+                <div class="text_center">
+                    <span class="date mobile_none">{{ day }}</span>
+                </div>
+            </div>
+        {% endfor %} 
+        </div>
     <div class="day_box">
     {% for whichday in dayname %}
         <div class="day_card">
@@ -48,7 +56,7 @@
 <div class="dashboard flex_row_spacebetween">
     <div class="column">
         <span class="name">{{ current_user.name }},</span>
-        <p class="message">this is your report form previous week!</p>
+        <p class="message">this is your report form this week!</p>
     </div>
     <div class="column tablet_none">
     </div>
