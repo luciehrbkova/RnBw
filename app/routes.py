@@ -295,12 +295,17 @@ def completed():
 @login_required
 def awards():
     user = current_user
-    allAwards = Award.query.all()
+    # allAwards = Award.query.all()
+    allAwards = db.session.query(Award.title, Award.card_id, Card, Board).select_from(Award).join(Card).join(Board).filter(Board.user_id == user.id).all()
+    print(allAwards)
+   
     for award in allAwards:
         awardtitle = award.title
         awardedCard = Card.query.filter_by(id=award.card_id).first()
         print(awardedCard.date)
-    return render_template('awards.html', title='My Awards Gallery', awardtitle=awardtitle, allAwards=allAwards , award=award, awardedCard=awardedCard)
+     
+   
+    return render_template('awards.html', title='My Awards Gallery', awardtitle=awardtitle, allAwards=allAwards , award=award)
 
 @app.route("/reports")
 @login_required
