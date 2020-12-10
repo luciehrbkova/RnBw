@@ -301,9 +301,14 @@ def awards():
    
     for award in allAwards:
         awardtitle = award.title
-        awardedCard = Card.query.filter_by(id=award.card_id).first()
-        print(awardedCard.date)
-     
+        # this would be ideal solution !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # awardedCard = Card.query.filter_by(id=award.card_id).first()
+        # awd = str(awardedCard.date)
+        # print(awd)
+    allCompletedCard = db.session.query(Card.date, Board).join(Board).filter(Card.completed == True).filter(Board.user_id == user.id).order_by(Card.date).all()
+    print("completed cards:")
+    print(allCompletedCard)
+
    
     return render_template('awards.html', title='My Awards Gallery', awardtitle=awardtitle, allAwards=allAwards , award=award)
 
