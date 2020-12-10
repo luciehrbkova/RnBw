@@ -295,7 +295,7 @@ def completed():
 @login_required
 def awards():
     user = current_user
-    allAwards = user.awards.query.all()
+    allAwards = Award.query.all()
     for award in allAwards:
         awardtitle = award.title
         awardedCard = Card.query.filter_by(id=award.card_id).first()
