@@ -152,9 +152,9 @@ def board(boardid):
                     #problem with deleting tasks
                     db.session.delete(task)
                     db.session.commit()
-                    cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
-                    db.session.delete(cardToDelete)
-                    db.session.commit()
+                cardToDelete = Card.query.filter_by(id=formDeleteCard.id.data).first()
+                db.session.delete(cardToDelete)
+                db.session.commit()
                 return redirect(url_for('board', boardid=boardid))
    
     # dashboard____________________________________________________________________________
