@@ -447,3 +447,12 @@ def test():
 
     return render_template('testboard.html', boards=displayBoard, user=user, title='test', greeting="Let's do it!")
 
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('errors.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('errors.html'), 500
