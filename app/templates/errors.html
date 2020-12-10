@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Home</title>
+
+</head>
+<body>
+    <!--*********************** HERO PAGE *************************-->
+    <section class="home">
+        <nav class="navigation">
+            <div class="menu_box flex_center">
+            </div>
+            <div class="nav_bar flex_row_spacebetween">
+            </div>
+            <div class="menu_box"></div>
+        </nav>
+
+       
+
+        <!-- ***************** MAIN SECTION **************************** -->
+        <section class="main no_overflow">
+            <div class="welcome">
+                <h2>Ups!</h2>
+                <h2>Something is wrong</h2>
+                <p>Return back and refresh your page, please.</p>
+                <div class="rainbow_home">
+                    <img src="{{ url_for('static', filename='img/rainbow_bckg.png') }}" alt="">
+                </div>
+            </div>
+           
+          
+        </section>        
+    </section>
+<script>
+    // _____________________dropdown menu_______________________________ 
+
+    function openNav() 
+        {
+            document.getElementById("dropdown_menu").style.display = "block";
+            document.getElementById("menu_img").src = "{{ url_for('static', filename='img/close_menu.png') }}";
+            document.getElementById("btn_menu").setAttribute("onClick", "closeNav()");
+        }
+    
+        function closeNav() 
+        {
+            document.getElementById("dropdown_menu").style.display = "none";
+            document.getElementById("menu_img").src = "{{ url_for('static', filename='img/menu.png') }}";
+            document.getElementById("btn_menu").setAttribute("onClick", "openNav()");
+        }
+</script>
+</body>
+</html>

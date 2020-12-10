@@ -9,15 +9,11 @@
             <div class="award"><img src="{{ url_for('static', filename='img/award.png') }}" alt=""></div>
             <div class="text_center">
                 <span class="date">{{ awardtitle }}</span><br>
-                <span class="date">completed by:</span><br>
-                <span class="date">{{ awardedCard.date }}</span><br>
+                <span class="date">{{ awd }}</span><br>
             </div>
         </div>
     {% endfor %}
-
-
-    
-    
+  
    
 </section>
 {% endblock %}  
