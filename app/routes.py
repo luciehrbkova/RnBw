@@ -339,8 +339,8 @@ def reports():
         day = mon +timedelta(days=i)
         whichday = dayname[i]
         # numbers
-        analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).filter(Task.done == True).all()
-        analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==day).all()
+        analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==day).filter(Task.done == True).filter(Board.user_id == user.id).all()
+        analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==day).filter(Board.user_id == user.id).all()
         numberDone = len(analyticsDone)
         numberAll = len(analyticsAll)
         if numberAll > 0:
@@ -354,8 +354,8 @@ def reports():
         print(numberAll, ratio)
 
     # monday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==mon).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==mon).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==mon).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==mon).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
@@ -365,8 +365,8 @@ def reports():
     ratio_mon = int(round(ratio_mon, 2)*100)
 
     # tuesday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==tue).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==tue).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==tue).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==tue).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
@@ -376,8 +376,8 @@ def reports():
     ratio_tue = int(round(ratio_tue, 2)*100)
 
     # wednesday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==wed).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==wed).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==wed).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==wed).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
@@ -387,8 +387,8 @@ def reports():
     ratio_wed = int(round(ratio_wed, 2)*100)
 
     # thursday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==thu).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==thu).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==thu).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==thu).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
@@ -398,8 +398,8 @@ def reports():
     ratio_thu = int(round(ratio_thu, 2)*100)
 
     # friday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==fri).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==fri).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==fri).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==fri).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
@@ -409,8 +409,8 @@ def reports():
     ratio_fri = int(round(ratio_fri, 2)*100)
 
     # saturday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sat).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sat).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==sat).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==sat).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
@@ -420,8 +420,8 @@ def reports():
     ratio_sat = int(round(ratio_sat, 2)*100)
 
     # sunday
-    analyticsDone = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sun).filter(Task.done == True).all()
-    analyticsAll = db.session.query( Task.done, Card.date).join(Card).filter(Card.date==sun).all()
+    analyticsDone = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==sun).filter(Task.done == True).filter(Board.user_id == user.id).all()
+    analyticsAll = db.session.query( Task.done, Card.date, Board).select_from(Task).join(Card).join(Board).filter(Card.date==sun).filter(Board.user_id == user.id).all()
     numberDone = len(analyticsDone)
     numberAll = len(analyticsAll)
     if numberAll > 0:
