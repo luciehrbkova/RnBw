@@ -641,6 +641,8 @@ li {
   border-radius: 1rem;
   background: linear-gradient(141.51deg, #F7EDFF 23.76%, white 98.35%);
   margin: 10px;
+  position: relative;
+  z-index: 9;
 }
 
 .board_card:hover {
